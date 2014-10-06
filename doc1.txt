@@ -1,0 +1,267 @@
+1
+python的实例属性必须在__init__(self) 方法中定义，直接跟在类名后边定义的属性都默认是类属性(类似于c++的static变量)。
+
+self.xxxx这种格式的第一次赋值含义是什么呢？-->含义是：定义，也就是说定义了一个名为xxxx的实例属性。
+
+reload ： 对已经加载的模块进行重新加载，一般用于原模块有变化等特殊情况，reload前该模块必须已经import过。
+
+split()的用法是这样的，你只要在括号里面打上你需要以什么分割就可以了，比如你要以#分割，那就split("#")。例如a = "a#a#a", b = a.split("#") >>> print b 就输出[a,a,a]
+
+
+2
+如果在成员函数中，使用self.类属性作为左值进行赋值操作，这相当于重新定义一个同名的实例属性，区别于类属性。原来的类属性不变。
+
+一个类似但是不同的例外：类属性为一个字典，这样的语句self.model_dict["a"] = "asd"，给字典添加元素，不会引起重新定义。
+
+可采用类来访问类属性，如果实例没有同名的属性，也可以用实例来访问。
+
+
+3 
+__init__应当返回none，因为他是第一个调用的，没有成员调用更早
+实例也有一个__dict__特殊属性
+python里class也是个真实存在于内存中的对象或变量，而不是静态语言中只存在于编译期间的类型
+
+classmethod：类方法
+staticmethod：静态方法
+
+静态方法和类方法都是可以通过类对象和类对象实例访问。但是：
+
+类方法的第一个参数是类变量(区别于类的实例)，实例方法的第一个参数是类的实例。 
+
+静态方法则没有，它基本上跟一个全局函数相同，一般来说用的很少
+
+
+4
+P是基类，c是派生类的实例，foo是P的一个普通方法，在C中进行了重写，使用P.foo(c)调用被重写的方法，c作为self参数
+如果子类中覆盖了__init__()，子类被实例化时，基类的__init__()就不会被自动调用，如果需要调用，可以P.__init__(self)或super(C, self).__init__()
+
+issubclass(sub, sup)布尔函数判断一个类是另一个类的子类或子孙类。
+
+isinstance(obj, cls)布尔函数在判定一个对象是否是另一个给定类的实例
+
+hasattr(obj,'attr')检查一个对象是否有一个特定的属性
+getattr()和setattr(obj,attr,value)函数相应地取得和赋值给对象的属性
+
+dir(obj)列出一个模块所有属性的信息
+
+super(type,obj),并且要求
+如果 obj 是一个实例，isinstance(obj,type)必须返回True
+如果 obj 是一个类或类型，issubclass(obj,type)必须返回True
+通常的用法第一类居多，是一个工厂函数，创造了一个super object，
+
+vars()内建函数与dir()相似
+
+
+5
+模块级私有化只需要在属性名前使
+用一个单下划线
+类的私有化属性前面加两个下划线
+
+
+6
+对于类和实例，都能以该对象为参数，通过内建函数dir()来获得他们的数据和方法属性
+dir([].append)
+
+
+7
+os.system('cat /etc/motd')，当执行命令时，python 挂起，完成之后会继续
+
+
+8
+导入文件，查找的路径修改
+shell中的pythonpath，一组用冒号分割的目录集合。解释器启动后，这个路径也可以通过sys.path访问
+
+加载模块会导致这个模块被"执行"，也就是被导入模块的顶层代码将直接被执行
+
+globals() 和 locals() 内建函数分别返回调用者全局和局部名称空间的字典
+
+
+9
+多线程的资源同步，可使用thread.RLock()来创建资源锁，然后使用acquire()来锁住资源，release()来释放资源。等待事件用thread.Event()，用wait()来等待事件，set()来激发事件，clear()用于清除已激发事件。另外可以用isAlive()来判断线程是否存活着
+
+
+10
+join：如在一个线程B中调用A.join()，则A结束后，线程B才会接着A.join()的后面运行。
+setDaemon：主线程A启动了子线程B，调用B.setDaemaon(True)，则A线程结束时，会把线程B也杀死。
+import multiprocessing  
+import sys  
+  
+def worker_with(lock, f):  
+    with lock:  
+        fs = open(f,"a+")  
+        fs.write('Lock acquired via with\n')  
+        fs.close()  
+          
+def worker_no_with(lock, f):  
+    lock.acquire()  
+    try:  
+        fs = open(f,"a+")  
+        fs.write('Lock acquired directly\n')  
+        fs.close()  
+    finally:  
+        lock.release()  
+  
+if __name__ == "__main__":  
+  
+    f = "file.txt"  
+    
+    lock = multiprocessing.Lock()  
+    w = multiprocessing.Process(target=worker_with, args=(lock, f))  
+    nw = multiprocessing.Process(target=worker_no_with, args=(lock, f))  
+  
+    w.start()  
+    nw.start()  
+  
+    w.join()  
+    nw.join()  
+
+
+11
+一个线程调用os._exit(0) 后，整个进程组都退出
+
+
+12
+multiprocessing包是Python中的多进程管理包。与threading.Thread类似，它可以利用multiprocessing.Process对象来创建一个进程。该进程可以运行在Python程序内部编写的函数。该Process对象与Thread对象的用法相同，也有start(), run(), join()的方法。此外multiprocessing包中也有Lock/Event/Semaphore/Condition类 (这些对象可以像多线程那样，通过参数传递给各个进程)，用以同步进程，其用法与threading包中的同名类一致。所以，multiprocessing的很大一部份与threading使用同一套API，只不过换到了多进程的情境。
+
+但在使用这些共享API的时候，我们要注意以下几点:
+
+在UNIX平台上，当某个进程终结之后，该进程需要被其父进程调用wait，否则进程成为僵尸进程(Zombie)。有必要对每个Process对象调用join()方法 (实际上等同于wait)。
+
+multiprocessing提供了threading包中没有的IPC(比如Pipe和Queue)，效率上更高。
+
+应优先考虑Pipe和Queue，避免使用Lock/Event/Semaphore/Condition等同步方式 (因为它们占据的不是用户进程的资源)。
+
+在多线程中，我们可以比较容易地共享资源，比如使用全局变量或者传递参数。
+
+多进程情况下，由于每个进程有自己独立的内存空间，以上方法并不合适。此时我们可以通过共享内存和Manager的方法来共享资源。但这样做提高了程序的复杂度，并因为同步的需要而降低了程序的效率。
+
+
+13
+异常类
+BaseExceptiona 		所有异常的基类
+SystemExitb python 	解释器请求退出
+KeyboardInterruptc 	用户中断执行(通常是输入^C)
+Exceptiond 		常规错误的基类
+StopIteratione 		迭代器没有更多的值
+GeneratorExita 		生成器(generator)发生异常来通知退出
+SystemExith Python 	解释器请求退出
+StandardErrorg 		所有的内建标准异常的基类
+ArithmeticErrord 	所有数值计算错误的基类
+FloatingPointErrord 	浮点计算错误
+OverflowError 		数值运算超出最大限制
+ZeroDivisionError 	除(或取模)零 (所有数据类型)
+AssertionErrord 	断言语句失败
+AttributeError 		对象没有这个属性
+EOFError 		没有内建输入,到达EOF 标记
+EnvironmentErrord 	操作系统错误的基类
+IOError 		输入/输出操作失败
+OSErrord 		操作系统错误
+WindowsErrorh Windows 	系统调用失败
+ImportError 		导入模块/对象失败
+KeyboardInterruptf 	用户中断执行(通常是输入^C)
+LookupErrord 		无效数据查询的基类
+IndexError 		序列中没有没有此索引(index)
+KeyError 		映射中没有这个键
+MemoryError 		内存溢出错误(对于Python 解释器不是致命的)
+NameError 		未声明/初始化对象 (没有属性)
+UnboundLocalErrorh 	访问未初始化的本地变量
+ReferenceErrore 	弱引用(Weak reference)试图访问已经垃圾回收了的对象
+RuntimeError 		一般的运行时错误
+NotImplementedErrord 	尚未实现的方法
+SyntaxError Python	语法错误
+IndentationErrorg 	缩进错误
+TabErrorg Tab 		和空格混用
+SystemError 		一般的解释器系统错误
+TypeError 		对类型无效的操作
+ValueError 		传入无效的参数
+UnicodeErrorh Unicode 	相关的错误
+
+
+
+14
+完整语法
+try:  
+    try_suite  
+except Exception1,Exception2,...,Argument:  
+    exception_suite  
+else:  
+    no_exceptions_detected_suite  
+finally:  
+    always_execute_suite  
+
+
+15
+try:  
+    try_suite  
+except:  
+    exception block  
+上面except子句不跟任何异常和异常参数，所以无论try捕获了任何异常，都将交给except子句的exception block来处理
+
+在except后面和：之前加上异常类，限制为特定的异常
+
+
+
+16
+每一个包目录下面都会有一个__init__.py的文件，这个文件是必须存在的，否则，Python就把这个目录当成普通目录，而不是一个包。__init__.py可以是空文件，也可以有Python代码。
+
+第三方库都会在Python官方的pypi.python.org网站注册，
+
+
+17
+动态绑定方法
+>>> def set_age(self, age): # 定义一个函数作为实例方法
+...     self.age = age
+...
+>>> from types import MethodType
+>>> s.set_age = MethodType(set_age, s, Student) # 给实例绑定一个方法
+>>> s.set_age(25) # 调用实例方法
+>>> s.age # 测试结果25
+
+给一个实例绑定的方法，对另一个实例是不起作用的：
+直接给class动态绑定，之后所有的实例都能使用
+>>> def set_score(self, score):
+...     self.score = score
+...
+>>> Student.set_score = MethodType(set_score, None, Student)
+
+
+18
+Python允许在定义class的时候，定义一个特殊的__slots__变量，来限制该class能添加的属性
+class Student(object):
+     __slots__ = ('name', 'age') # 用tuple定义允许绑定的属性名称
+
+试图绑定其他属性就会出错
+__slots__定义的属性仅对当前类起作用，对继承的子类是不起作用的
+
+
+19
+class student(object):
+    
+    def __init__(self):
+        self._age = 0
+        
+    @property                    #
+    def age(self):
+        return self._age
+    
+    @age.setter
+    def age(self,value):
+        if not isinstance(value,int):
+            raise ValueError('age should be int')
+        if value < 0 or value > 120:
+            raise ValueError('age should between 0 ~ 100')
+        self._age = value
+        
+if __name__ == '__main__':
+    stu = student()
+    print stu.age
+    stu.age = 12
+    print stu.age
+
+使用修饰器，定义时属性名要加一个_外部使用时不用加，getter方法用@property，对应的函数名字和属性名相同，不加_，setter方法，是用@属性名.setter对应的函数名称任然是不加_的属性名字
+
+
+
+20
+class的定义是运行时动态创建的，而创建class的方法就是使用type()函数
+type()函数既可以返回一个对象的类型，又可以创建出新的类型
