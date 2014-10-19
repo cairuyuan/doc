@@ -1,0 +1,41 @@
+1
+删除本地分支git branch -dname		,如果分支未合并到master，则会失败报错，改用-D可强制删除
+删除远程分支git push origin :name	,注意冒号前面有一个空格，表示把一个空的分支推送到远程分支name，相当于删除
+git clone url会默认克隆所有分支数据，但是只建立master分支，需要添加其他分支并和远程服务器对应起来，可使用:
+git checkout -t origin/name
+也可以使用不同的本地名和远程名对应起来
+git checkout -b name1 origin/name2	在本地建立name1分支并且和远程的name2关联起来
+注意这里的关联/对应，原本是tracking
+git branch		查看本地分支
+git branch -r		查看远程的分支
+创建远程分支	git push origin master:name	
+在本地创建新的分支name后，然后推送 git push origin name(把当前分支推送到远程name分支)
+或 git push origin name:name
+
+
+
+2
+关于推送
+git push不会推送标签（tag），除非使用--tags选项。 git push origin --tags 
+远程更新时，推送会报错。可以使用git push --force origin 推送
+不管是否存在对应的远程分支，将本地的所有分支都推送 git push --all origin 
+git remote add <主机名> <网址> 添加远程库
+git push <远程主机名> <本地分支名>:<远程分支名> 远程主机名通常默认origin
+
+
+
+3
+git fetch <远程主机名> 将更新取回本地
+git fetch <远程主机名> <分支名> 只取回指定分支
+
+git pull <远程主机名> <远程分支名>:<本地分支名> 将远程分支取回并合并到本地分支
+省略冒号和后面的本地分支名，表示将远程分支和本地分支合并
+
+
+
+4
+本地分支重命名：git branch -m oldname newname
+git branch -d -r branchname 删除远程branchname分支，也可以推送空的分支来实现
+没有直接的远程分支重命名，办法是先删除远程分支，然后本地改名，push
+git push --tags 推送本地分支
+git fetch origin tag <tagname>获取远程分支

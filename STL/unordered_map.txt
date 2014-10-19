@@ -1,0 +1,42 @@
+unordered_map是一种联合的容器，键和由键映射的值构成
+
+key用来唯一的确定一个值，类似于函数的自变量，必须唯一不能重复，变量没有要求
+
+在unordered_map的内部，没有排序，既没有根据key排序，也没有根据value排序。为了根据key能够快速的访问，unordered_map使用了bucket桶，key首先被转换为hash值然后放置到bucket中。这个方法使得通过key访问value非常快，平均是常数时间
+
+通过key来access value ，unordered_map要比map快，两者对于range iteration through a subset of their elements.都低效
+
+unordered_map重载了[]
+
+
+map中的key可用来排序，使得按照key增大或减小的顺序排列，排序前要指定compare函数
+
+map使用红黑树实现的
+
+template <class _Key, class _Tp, class _Compare, class _Alloc>
+class map {  ...... }
+_Compare表示比较方式，_Alloc表示内存分配器
+
+map<int, char*>* my_map = new map<int, char*>;
+表示键为int 值为C字符串_Compare和_Allco可以省略，因为int是内置类型
+
+如果使用一种自定义类型为key
+struct Term{
+    char* str;
+    int   hashCode;
+    ......
+};
+则排序功能就要首先定义好compare
+
+template <class T>
+struct Compare
+{
+  int operator()(const T& x, const T& k) const{
+    if(x.hashCode >= k.hashCode) return 0;
+    else return 1;
+  }
+};
+比较函数对象必需写成：
+当节点键大于等于所要查找或插入的键时，返回0(false)，反之为1(true)，这是由内部源代码所决定的。
+
+map<Term, int, Compare<Term> >* my_map = new map<Term, int, Compare<Term> >;
