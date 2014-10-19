@@ -8,12 +8,14 @@ reload ： 对已经加载的模块进行重新加载，一般用于原模块有变化等特殊情况，reload前
 split()的用法是这样的，你只要在括号里面打上你需要以什么分割就可以了，比如你要以#分割，那就split("#")。例如a = "a#a#a", b = a.split("#") >>> print b 就输出[a,a,a]
 
 
+
 2
 如果在成员函数中，使用self.类属性作为左值进行赋值操作，这相当于重新定义一个同名的实例属性，区别于类属性。原来的类属性不变。
 
 一个类似但是不同的例外：类属性为一个字典，这样的语句self.model_dict["a"] = "asd"，给字典添加元素，不会引起重新定义。
 
 可采用类来访问类属性，如果实例没有同名的属性，也可以用实例来访问。
+
 
 
 3 
@@ -29,6 +31,7 @@ staticmethod：静态方法
 类方法的第一个参数是类变量(区别于类的实例)，实例方法的第一个参数是类的实例。 
 
 静态方法则没有，它基本上跟一个全局函数相同，一般来说用的很少
+
 
 
 4
@@ -58,13 +61,16 @@ vars()内建函数与dir()相似
 类的私有化属性前面加两个下划线
 
 
+
 6
 对于类和实例，都能以该对象为参数，通过内建函数dir()来获得他们的数据和方法属性
 dir([].append)
 
 
+
 7
 os.system('cat /etc/motd')，当执行命令时，python 挂起，完成之后会继续
+
 
 
 8
@@ -76,8 +82,10 @@ shell中的pythonpath，一组用冒号分割的目录集合。解释器启动后，这个路径也可以通过s
 globals() 和 locals() 内建函数分别返回调用者全局和局部名称空间的字典
 
 
+
 9
 多线程的资源同步，可使用thread.RLock()来创建资源锁，然后使用acquire()来锁住资源，release()来释放资源。等待事件用thread.Event()，用wait()来等待事件，set()来激发事件，clear()用于清除已激发事件。另外可以用isAlive()来判断线程是否存活着
+
 
 
 10
@@ -116,8 +124,10 @@ if __name__ == "__main__":
     nw.join()  
 
 
+
 11
 一个线程调用os._exit(0) 后，整个进程组都退出
+
 
 
 12
@@ -134,6 +144,7 @@ multiprocessing提供了threading包中没有的IPC(比如Pipe和Queue)，效率上更高。
 在多线程中，我们可以比较容易地共享资源，比如使用全局变量或者传递参数。
 
 多进程情况下，由于每个进程有自己独立的内存空间，以上方法并不合适。此时我们可以通过共享内存和Manager的方法来共享资源。但这样做提高了程序的复杂度，并因为同步的需要而降低了程序的效率。
+
 
 
 13
@@ -190,6 +201,7 @@ finally:
     always_execute_suite  
 
 
+
 15
 try:  
     try_suite  
@@ -198,13 +210,14 @@ except:
 上面except子句不跟任何异常和异常参数，所以无论try捕获了任何异常，都将交给except子句的exception block来处理
 
 在except后面和：之前加上异常类，限制为特定的异常
-
-
+可以在except语句块后面加一个else，当没有错误发生时，会自动执行else语句：
+raise语句如果不带参数，就会把当前错误原样抛出
 
 16
 每一个包目录下面都会有一个__init__.py的文件，这个文件是必须存在的，否则，Python就把这个目录当成普通目录，而不是一个包。__init__.py可以是空文件，也可以有Python代码。
 
 第三方库都会在Python官方的pypi.python.org网站注册，
+
 
 
 17
@@ -225,6 +238,7 @@ except:
 >>> Student.set_score = MethodType(set_score, None, Student)
 
 
+
 18
 Python允许在定义class的时候，定义一个特殊的__slots__变量，来限制该class能添加的属性
 class Student(object):
@@ -232,6 +246,7 @@ class Student(object):
 
 试图绑定其他属性就会出错
 __slots__定义的属性仅对当前类起作用，对继承的子类是不起作用的
+
 
 
 19
@@ -265,3 +280,135 @@ if __name__ == '__main__':
 20
 class的定义是运行时动态创建的，而创建class的方法就是使用type()函数
 type()函数既可以返回一个对象的类型，又可以创建出新的类型
+
+
+
+21
+把一个列表生成式的[]改成()，就创建了一个generator
+generator保存的是算法，每次调用next()，就计算出下一个元素的值，直到计算到最后一个元素，没有更多的元素时，抛出StopIteration的错误。
+如果一个函数定义中包含yield关键字，那么这个函数就不再是一个普通函数，而是一个generator：
+def fib(max):
+    n, a, b = 0, 0, 1
+    while n < max:
+        yield b
+        a, b = b, a + b
+        n = n + 1
+函数是顺序执行，遇到return语句或者最后一行函数语句就返回。而变成generator的函数，在每次调用next()的时候执行，遇到yield语句返回，再次执行时从上次返回的yield语句处继续执行。
+
+
+
+22
+map()函数接收两个参数，一个是函数，一个是序列，map将传入的函数依次作用到序列的每个元素，并把结果作为新的list返回。
+
+reduce把一个函数作用在一个序列[x1, x2, x3...]上，这个函数必须接收两个参数，reduce把结果继续和序列的下一个元素做累积计算，其效果就是：reduce(f, [x1, x2, x3, x4]) = f(f(f(x1, x2), x3), x4)
+
+sorted()函数也是一个高阶函数，它还可以接收一个比较函数来实现自定义的排序。注意合适的返回值
+
+内部函数sum可以引用外部函数lazy_sum的参数和局部变量，当lazy_sum返回函数sum时，相关参数和变量都保存在返回的函数中，这种称为“闭包（Closure）”的程序结构。每次调用都会返回一个新的函数，即使传入相同的参数
+def lazy_sum(*args):
+    def sum():
+        ax = 0
+        for n in args:
+            ax = ax + n
+        return ax
+    return sum
+>>> f = lazy_sum(1, 3, 5, 7, 9)
+>>> f
+<function sum at 0x10452f668>
+
+
+
+23
+def log(func):
+    def wrapper(*args, **kw):
+        print 'call %s():' % func.__name__
+        return func(*args, **kw)
+    return wrapper
+
+log对传入的func函数进行修饰
+@log#相当于now= log（now）
+def now():
+    print '2013-12-25'
+之后调用now()，就会从log处执行，
+
+
+
+24
+以一个下划线开头的实例变量名，意思是，“虽然我可以被访问，但是，请把我视为私有变量，不要随意访问”
+
+ThreadLocal相当于一个全局字典，每个thread都可以从中找出自己的变量，使用时先建立一个全局的变量，然后通过点号存取
+
+一个函数参数的默认值，仅仅在该函数定义的时候，被赋值一次。不要将默认参数设置为可变对象。当函数以后在执行时，由于默认参数已经定义（可变对象），就会使用之前的那个默认值，导致，这个默认值（可变）不会为每一次调用重新创建，而是成为一个全局变量
+
+
+26
+匿名函数lambda
+g = lambda x : x**2
+print g(4)
+
+
+
+27
+>>> class A(object):
+...     x = 1
+>>> class B(A):
+...     pass
+>>> class C(A):
+...     pass
+>>> print A.x, B.x, C.x
+1 1 1
+>>> B.x = 2
+>>> print A.x, B.x, C.x
+1 2 1
+>>> A.x = 3
+>>> print A.x, B.x, C.x
+3 2 3
+我了个去。只是改变了A.x，为啥C.x也变了？
+
+在Python里，类变量通常在内部被当做字典来处理并遵循通常所说的方法解析顺序（Method Resolution Order (MRO)）。因此在上面的代码中，因为属性x在类C中找不到，因此它会往上去它的基类中查找（在上面的例子中只有A这个类，当然Python是支持多重继承（multiple inheritance）的）。换句话说，C没有它自己独立于A的属性x。因此对C.x的引用实际上是对A.x的引用。（B.x不是对A.x的引用是因为在第二步里B.x=2将B.x引用到了2这个对象上，倘若没有如此，B.x仍然是引用到A.x上的。——译者注）
+
+
+
+28
+元类也是一个类，是一个type类。
+元类一般用于创建类。在执行类定义时，解释器必须要知道这个类的正确的元类，如果此属性没有定义，它会向上查找父类中的__metaclass__属性。如果还没发现，就查找全局变量。
+对于传统类来说，它们的元类是types.ClassType。元类也有构造器，传递三个参数：类名，从基类继承数据的元组，和类属性字典
+
+type可以像这样工作：
+type(类名, 父类的元组（针对继承的情况，可以为空），包含属性的字典（名称和值）)
+__class__属性，是这个对象的类
+
+class Foo(Bar): 
+    pass
+Python做了如下的操作：
+
+Foo中有__metaclass__这个属性吗？如果是，Python会在内存中通过__metaclass__创建一个名字为Foo的类对象（我说的是类对象，请紧跟我的思路）。如果Python没有找到__metaclass__，它会继续在Bar（父类）中寻找__metaclass__属性，并尝试做和前面同样的操作。如果Python在任何父类中都找不到__metaclass__，它就会在模块层次中去寻找__metaclass__，并尝试做同样的操作。如果还是找不到__metaclass__,Python就会用内置的type来创建这个类对象。
+
+
+
+29
+__new__ 是在__init__之前被调用的特殊方法，__new__是用来创建对象并返回之的方法，而__init__只是用来将传入的参数初始化给对象 
+'type'实际上是一个类，就像'str'和'int'一样  所以，你可以从type继承 
+
+super(classA,self)，通常用在classA的内部实例方法中，返回classA的父类的实例，
+
+ 如果在类中同时定义了__init__和__new__，在创建对象的时候会有优先使用__new__
+
+new方法会返回所构造的对象，init则不会，在使用new返回对象的时候会隐式调用init函数。new函数必须以cls作为第一个参数，而init则以self作为其第一个参数
+
+利用new创建一个类的对象的最常用的方法为：super(currentclass, cls).__new__(cls[, ...]) 
+
+
+30
+如果想调用基类的 __init__方法必须显式的调用，只继承基类在初始化子类时并不会自动调用基类的 __init__ 方法
+Many classes like to create objects with instances customized to a specific initial state. Therefore a class may define a special method named __init__()
+当实例创建完成就调用 __init__ 方法，初始化类的内部状态值。
+
+__new__ 方法其实是一个静态方法，不用每次定义类的时候都声明这个方法，因为在版本 2.4 之后 object 是所有对象的基类，而 __new__ 是定义在 object 对象内部的静态方法。
+
+ Python 中把初始化和创建对象这两个概念分开了
+
+在Python里自定义class时，方法的第一个参数必须是该class的instance自身的引用(一般用self命名)
+
+Python基本上是函数式语言（广义的），面向对象是其使用hash表后的附属物而已。这一点与原本作为面向对象编程语言而设计的C++, Java, Ruby等相异。
+

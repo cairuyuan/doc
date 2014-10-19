@@ -1,0 +1,100 @@
+1
+git checkout -- [文件名]	取消刚才修改过，但是尚未add的文件
+如果已经add过就要两步
+git reset HEAD -- [文件名]
+git checkout -- [文件名]
+git clean 参数
+    -n 显示 将要 删除的 文件 和  目录
+     -f 删除 文件，-df 删除 文件 和 目录
+git clean -n
+git clean -df
+git clean -f
+
+
+
+2
+python’s getattr function is used to fetch an attribute from an object, using a string object instead of an identifier to identify the attribute
+
+
+
+3
+logging是线程安全的
+默认情况下，logging将日志打印到屏幕，日志级别为WARNING；
+日志级别大小关系为：CRITICAL > ERROR > WARNING > INFO > DEBUG > NOTSET，当然也可以自己定义日志级别。
+
+如果不指定basicconfig的filename参数就会输出到屏幕
+logging.basicConfig(
+		level		=	logging.DEBUG,
+                format		=	'%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
+                datefmt		=	'%a, %d %b %Y %H:%M:%S',
+                filename	=	'myapp.log',
+                filemode	=	'w')
+
+level: 设置日志级别，默认为logging.WARNING
+format: 指定输出的格式和内容，format可以输出很多有用信息，如上例所示:
+ 	%(levelno)s: 打印日志级别的数值
+ 	%(levelname)s: 打印日志级别名称
+	%(pathname)s: 打印当前执行程序的路径，其实就是sys.argv[0]
+ 	%(filename)s: 打印当前执行程序名
+ 	%(funcName)s: 打印日志的当前函数
+ 	%(lineno)d: 打印日志的当前行号
+ 	%(asctime)s: 打印日志的时间
+ 	%(thread)d: 打印线程ID
+ 	%(threadName)s: 打印线程名称
+ 	%(process)d: 打印进程ID
+	%(message)s: 打印日志信息
+datefmt: 指定时间格式，同time.strftime()
+
+stream: 指定将日志的输出流，可以指定输出到sys.stderr,sys.stdout或者文件，默认输出到sys.stderr，当stream和filename同时指定时，stream被忽略
+filename: 指定日志文件名
+filemode: 和file函数意义相同，指定日志文件的打开模式，'w'或'a'
+
+
+4
+f=open('/tmp/hello','w')
+	rU 或 Ua 以读方式打开, 同时提供通用换行符支持 (PEP 278)
+	w     以写方式打开，
+	a     以追加模式打开 (从 EOF 开始, 必要时创建新文件)
+	r+     以读写模式打开
+	w+     以读写模式打开 (参见 w )
+	a+     以读写模式打开 (参见 a )
+	rb     以二进制读模式打开
+	wb     以二进制写模式打开 (参见 w )
+	ab     以二进制追加模式打开 (参见 a )
+	rb+    以二进制读写模式打开 (参见 r+ )
+	wb+    以二进制读写模式打开 (参见 w+ )
+	ab+    以二进制读写模式打开 (参见 a+ )
+
+f.read([size]) size未指定则返回整个文件,如果文件大小>2倍内存则有问题.f.read()读到文件尾时返回""(空字串)
+file.readline() 返回一行
+file.readline([size]) 返回包含size行的列表,size 未指定则返回全部行
+for line in f: print line #通过迭代器访问
+f.write("hello\n")
+f.tell() 返回一个整数,表示当前文件指针的位置(就是到文件头的比特数).
+f.seek(偏移量,[起始位置])用来移动文件指针
+	偏移量:单位:比特,可正可负
+	起始位置:0-文件头,默认值;1-当前位置;2-文件尾
+f.close() 关闭文件
+
+
+
+5
+self和cls只是python中约定的写法，本质上只是一个函数参数而已，没有特别含义
+任何对象调用方法都会把把自己作为该方法中的第一个参数，传递到函数中。
+decorator是一个函数， 接收一个函数作为参数， 返回值是一个函数
+
+一个修饰符就是一个函数，它将被修饰的函数做为参数，并返回修饰后的同名函数或其它可调用的东西。
+
+调用一个被修饰的函数，
+	调用修饰函数
+	如果修饰函数返回了一个可调用的函数，则调用此函数，参数为最开始调用时的参数
+
+当函数的参数不确定时，可以使用*args和**kwargs。
+*args没有key值 ，可以当作可容纳多个变量组成的list 
+**kwargs有key值，可以当作容纳多个key和value的dictionary
+
+
+
+6
+copy模块
+profile分析
