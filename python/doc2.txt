@@ -98,3 +98,37 @@ decorator是一个函数， 接收一个函数作为参数， 返回值是一个函数
 6
 copy模块
 profile分析
+eclipse调试，双击行号左侧添加断点，用debug运行
+F5	step into
+F6	step over
+F7	step return
+F8	运行到下一断
+
+多数据成员进行频繁的查找或者访问的时候，使用 dict 而不是 list 
+
+
+
+7
+安装django
+首先确保安装了setuptool模块
+	下载源文件，进入其目录运行 python setup.py install
+下载django源文件，可以git clone git://github.com/django/django.git或下载网站上的版本
+进入目录运行python setup.py install
+测试：进入python>>>import django能正常导入就基本成功，再运行print(django.get_version())显示版本
+
+
+
+8
+在命令行下面，
+使用python */django-admin.py [mysite]	在当前目录下面创建一个名为[mysite]的工程
+	修改里面的views.py和urls.py文件实现一个简单的web程序	通过127.0.0.1输出
+在django中不同的模块就成为不同的app
+在刚创建的工程下面（和manage.py同文件夹）创建一个app
+	python manage.py startapp [world]	创建一个[world] app
+使用python manage.py sync来创建数据库，可能会与到问题：supply engine value.
+	服务器配置文件格式要正确，不要有多余的字符如逗号，不同django版本的格式。。。。
+	安装mysql-pyhton的connector，3者位数版本要统一
+在installed_apps中添加app名，用'[world]'这样在model.py中定义的数据表就能被创建了
+
+	
+	
