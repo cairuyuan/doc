@@ -131,4 +131,54 @@ F8	运行到下一断
 在installed_apps中添加app名，用'[world]'这样在model.py中定义的数据表就能被创建了
 
 	
-	
+
+9
+子模块（web程序，页面）的路径问题
+射项目名称为	mysite
+则mysite文件加下面会有 mysite文件夹（主程序），manage.py
+新添加的模块和第二个mysite同层次，和manage.py同目录，例如名为world，这就是一个页面的模块
+需要在主程序文件夹的setting.py中的installedapp中添加app名即 world
+在主程序的url.py中可以使用两种方式分发url请求
+	1 url(r'^world/$', include('world.urls')),
+	2 from world import views
+	  url(r'^world/$', views.index)
+这样就会把url的请求分发到world程序的urls.py中，在这个文件中，url的路径已经变成
+	r'^$' 	-->	http://127.0.0.1:8000/world/
+也就是说在上层的路径中增加了子程序名world
+
+
+
+10
+syncdb 仅仅创建数据库中不存在的表，而不会同步模型的修改或者
+删除到数据库。如果你添加或者修改了模型的一个字段，或者删除一个模型，你必须手动改变你的数据库
+
+站点管理：
+4个installed_app，3个中间件类，syncdb，urls映射，更改中文，models的文件夹添加admin.py，数据类中添加admin类并配置
+
+null表示什么都没有，blank表示空白，null=True表示允许什么都没有，blank=True表示允许空白，空白不代表什么都没有，空字符串就是空白的值；
+对于数值型，布尔型的字段，null=True，blank=False表示允许什么都没有，但不允许为空字符串。
+
+使django的网站可以在外部访问
+python mange.py runserver 0.0.0.0:8000端口号可以改但不能冲突
+
+GET 和POST 是浏览器使用的两个方法，用于发送数据到服务器端
+
+
+
+11
+写urls的条目时
+每一条匹配后注意要加上/例如，不加就是地址错误
+	url(r'^search/$', 'mysite.views.search'),
+
+每当Django遇到include() 时，它将截断匹配的URL，并把剩余的字符串发往包含的URLconf作进一步处理
+
+被跨域脚本 (XSS) 攻击
+
+syncdb仅仅创建数据库里还没有的表，它 并不 对你数据模型的修改进行同步,也不处理数据模型的删除。 如果你新增或修改数据模型里的字段,或是删除了一个数据模型，你需要手动在数据库里进行相应的修改
+
+
+
+12
+用session 框架来存取每个访问者任意数据， 这些数据在服务器端存储，并对cookie的收发进行了抽象。 Cookies只存储数据的哈希会话ID，而不是数据本身，从而避免了大部分的常见cookie问题
+
+如果不需要session功能，你可以删除 MIDDLEWARE_CLASSES 设置中的 SessionMiddleware 和 INSTALLED_APPS 设置中的 'django.contrib.sessions'
