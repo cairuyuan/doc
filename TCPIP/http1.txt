@@ -1,30 +1,30 @@
 1
-Ò»°ãÔÚä¯ÀÀÆ÷ÖÐÊäÈëÍøÖ··ÃÎÊ×ÊÔ´¶¼ÊÇÍ¨¹ýGET·½Ê½£»ÔÚFORMÌá½»ÖÐ£¬¿ÉÒÔÍ¨¹ýMethodÖ¸¶¨Ìá½»·½Ê½ÎªGET»òÕßPOST
+ä¸€å€æºé€šGETå¼FORMå³¤æï¼­MethodæŒ‡å³¤çš‡è½¿GETPOST
 
-Http¶¨ÒåÁËÓë·þÎñÆ÷½»»¥µÄ²»Í¬·½·¨£¬×î»ù±¾µÄ·½·¨ÓÐ4ÖÖ£¬·Ö±ðÊÇGET£¬POST£¬PUT£¬DELETE
+Httpé¹˜æ¢ç‰ŸåŒå§†4éƒ‘ç›´GETPOSTPUTDELETE
 
-URLÈ«³ÆÊÇ×ÊÔ´ÃèÊö·û£¬ÎÒÃÇ¿ÉÒÔÕâÑùÈÏÎª£ºÒ»¸öURLµØÖ·£¬ËüÓÃÓÚÃèÊöÒ»¸öÍøÂçÉÏµÄ×ÊÔ´£¬¶øHTTPÖÐµÄGET£¬POST£¬PUT£¬DELETE¾Í¶ÔÓ¦×Å¶ÔÕâ¸ö×ÊÔ´µÄ²é £¬¸Ä £¬Ôö £¬É¾ 4¸ö²Ù×÷
+URLå…¨æºå¼ºä¸ºä¸€URLå€ä¸€ç³»æºHTTPæ¢°GETPOSTPUTDELETEæŠ•åº”å“¦æºç‰Ÿ   åˆ  4
 
-GETÒ»°ãÓÃÓÚ»ñÈ¡/²éÑ¯×ÊÔ´ÐÅÏ¢£¬¶øPOSTÒ»°ãÓÃÓÚ¸üÐÂ×ÊÔ´ÐÅÏ¢
+GETä¸€è¯¨å–/è¯¢æºæ¯POSTä¸€è¯Ÿæºæ¯
 
 
 
 2
-¸ù¾ÝHTTP¹æ·¶£¬GETÓÃÓÚÐÅÏ¢»ñÈ¡£¬¶øÇÒÓ¦¸ÃÊÇ°²È«µÄºÍÃÝµÈµÄ ¡£
-¡¡¡¡1.ËùÎ½°²È«µÄÒâÎ¶×Å¸Ã²Ù×÷ÓÃÓÚ»ñÈ¡ÐÅÏ¢¶ø·ÇÐÞ¸ÄÐÅÏ¢¡£Ëü½ö½öÊÇ»ñÈ¡×ÊÔ´ÐÅÏ¢£¬¾ÍÏñÊý¾Ý¿â²éÑ¯Ò»Ñù£¬²»»áÐÞ¸Ä£¬Ôö¼ÓÊý¾Ý£¬²»»áÓ°Ïì×ÊÔ´µÄ×´Ì¬¡£
-¡¡¡¡2.ÃÝµÈµÄÒâÎ¶×Å¶ÔÍ¬Ò»URLµÄ¶à¸öÇëÇóÓ¦¸Ã·µ»ØÍ¬ÑùµÄ½á¹û¡£
+HTTPå¨£GETæ¯å–åº”å‰å…¨æš®èŽ¸é¹Š 
+1.è°“å…¨å‘³é¸¥è²Œè¯¨å–æ¯è–·æ¯è…”å–æºæ¯è˜è¯¢ä¸€æ™¦æ”¹ï¼½ï¼³éœ¸é†‹åˆº
+2.èŽ¸é¹Šå‘³å“¦åŒä¸€URLäº©åº”æ¢…åŒæ…•
 
-POST±íÊ¾¿ÉÄÜÐÞ¸Ä±ä·þÎñÆ÷ÉÏµÄ×ÊÔ´µÄÇëÇó ¡£¼ÌÐøÒýÓÃÉÏÃæµÄÀý×Ó£º»¹ÊÇÐÂÎÅÒÔÍøÕ¾ÎªÀý£¬¶ÁÕß¶ÔÐÂÎÅ·¢±í×Ô¼ºµÄÆÀÂÛÓ¦¸ÃÍ¨¹ýPOSTÊµÏÖ£¬ÒòÎªÔÚÆÀÂÛÌá½»ºóÕ¾µãµÄ×ÊÔ´ÒÑ¾­²»Í¬ÁË£¬»òÕßËµ×ÊÔ´±»ÐÞ¸ÄÁË¡£
+POSTç¤ºè–·è°‹ç³»æº æ¨±ç«™ä¸ºå¨æ¬§çº¦åº”é€šPOSTå®žéƒ‘ä¸ºå³¤å¾½é©¹å›±å°±ï¼«ç¿Ÿå´”æ†
 
-HTTPÐ­ÒéµÄ¸ñÊ½£º
+HTTPåæ¯å¼
 <request line>
 <headers>
 <blank line>
 <request-body>
 
-ÔÚHTTPÇëÇóÖÐ£¬µÚÒ»ÐÐ±ØÐëÊÇÒ»¸öÇëÇóÐÐ£¨request line£©£¬ÓÃÀ´ËµÃ÷ÇëÇóÀàÐÍ¡¢Òª·ÃÎÊµÄ×ÊÔ´ÒÔ¼°Ê¹ÓÃµÄHTTP°æ±¾¡£½ô½Ó×ÅÊÇÒ»¸öÊ×²¿£¨header£©Ð¡½Ú£¬ÓÃÀ´ËµÃ÷·þÎñÆ÷ÒªÊ¹ÓÃµÄ¸½¼ÓÐÅÏ¢¡£ÔÚÊ×²¿Ö®ºóÊÇÒ»¸ö¿ÕÐÐ£¬ÔÙ´ËÖ®ºó¿ÉÒÔÌí¼ÓÈÎÒâµÄÆäËûÊý¾Ý³ÆÖ®ÎªÖ÷Ìå£¨body£©¡£
+HTTPæ ¡ä¸€æ–œä¸€æ ¡request lineè¯´æ±€è¦å®žæºçº¦ä½¿çŽ«HTTPå§¹ç–½è›”headerå°å†¢è¯´è¦ä½¿çŽ«æ¯æ¯æ’žä¹‹ä¸€æ ¡ä¿…ä¹‹èŽ©ä¹‹ä¸ºæ¾¹body
 
-ÀýÈç
+
 
 GET /books/?sex=man&name=Professional HTTP/1.1
 Host: www.wrox.com
@@ -32,8 +32,8 @@ User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.7.6)
 Gecko/20050225 Firefox/1.0.1
 Connection: Keep-Alive
 
-GETÌá½»£¬ÇëÇóµÄÊý¾Ý»á¸½ÔÚURLÖ®ºó£¨¾ÍÊÇ°ÑÊý¾Ý·ÅÖÃÔÚHTTPÐ­ÒéÍ·ÖÐ£©£¬ÒÔ?·Ö¸îURLºÍ´«ÊäÊý¾Ý£¬¶à¸ö²ÎÊýÓÃ&Á¬½Ó£»ÀýÈç£ºlogin.action?name=hyddd&password=idontknow&verify=%E4%BD%A0 %E5%A5%BD¡£Èç¹ûÊý¾ÝÊÇÓ¢ÎÄ×ÖÄ¸/Êý
-×Ö£¬Ô­Ñù·¢ËÍ£¬Èç¹ûÊÇ¿Õ¸ñ£¬×ª»»Îª+£¬Èç¹ûÊÇÖÐÎÄ/ÆäËû×Ö·û£¬ÔòÖ±½Ó°Ñ×Ö·û´®ÓÃBASE64¼ÓÃÜ£¬µÃ³öÈç£º %E4%BD%A0%E5%A5%BD£¬ÆäÖÐ£¥XXÖÐµÄXXÎª¸Ã·ûºÅÒÔ16½øÖÆ±íÊ¾µÄASCII¡£
+GETå³¤æƒ ä¼šé™„URLä¹‹èž…å‰èŽ˜HTTPåå¤´æ ¡?æŒ‡URLç—›è©&æ¨±çº¾login.action?name=hyddd&password=idontknow&verify=%E4%BD%A0 %E5%A5%BDè‹±æ¯/
+éƒ‘åŽŸåœå¼ºå´­è½¬ä¸º+/å€ç›´å½±å€BASE64åŸ½è´¸çº¾ %E4%BD%A0%E5%A5%BDæ ¡XXæ¢°XXä¸ºæ¢…16ç¥¨ç¤ºASCII
 
 
 POST / HTTP/1.1
@@ -43,73 +43,73 @@ Gecko/20050225 Firefox/1.0.1
 Content-Type: application/x-www-form-urlencoded
 Content-Length: 40
 Connection: Keep-Alive
-     £¨----¿ÕÐÐ----£©
+     --------
 name=Professional%20Ajax&publisher=Wiley
-POSTÌá½»£º°ÑÌá½»µÄÊý¾Ý·ÅÖÃÔÚÊÇHTTP°üµÄ°üÌåÖÐ.GETÌá½»µÄÊý¾Ý»áÔÚµØÖ·À¸ÖÐÏÔÊ¾³öÀ´£¬¶øPOSTÌá½»£¬µØÖ·À¸²»»á¸Ä±ä
+POSTå³¤ä¼šäº¤èŽ˜HTTPé™Œ.GETå³¤æƒ æ‚”æŠµè‚¥POSTå³¤æ¢çºº
 
 
 
 3
-HTTPÐ­ÒéÃ»ÓÐ¶Ô´«ÊäµÄÊý¾Ý´óÐ¡½øÐÐÏÞÖÆ£¬HTTPÐ­Òé¹æ·¶Ò²Ã»ÓÐ¶ÔURL³¤¶È½øÐÐÏÞÖÆ¡£¶øÔÚÊµ¼Ê¿ª·¢ÖÐ´æÔÚµÄÏÞÖÆÖ÷ÒªÓÐ£ºGET:ÌØ¶¨ä¯ÀÀÆ÷ºÍ·þÎñÆ÷¶ÔURL³¤¶ÈÓÐÏÞÖÆ£¬ÀýÈçIE¶ÔURL³¤¶ÈµÄÏÞÖÆÊÇ2083×Ö½Ú(2K+35)¡£¶ÔÓÚÆäËûä¯ÀÀÆ÷£¬ÈçNetscape¡¢FireFoxµÈ£¬ÀíÂÛÉÏÃ»ÓÐ³¤¶ÈÏÞÖÆ£¬ÆäÏÞÖÆÈ¡¾öÓÚ²Ù×÷ÏµÍ³µÄÖ§³Ö¡£Òò´Ë¶ÔÓÚGETÌá½»Ê±£¬´«ÊäÊý¾Ý¾Í»áÊÜµ½URL³¤¶ÈµÄÏÞÖÆ¡£POST:ÓÉÓÚ²»ÊÇÍ¨¹ýURL´«Öµ£¬ÀíÂÛÉÏÊý¾Ý²»ÊÜÏÞ¡£µ«Êµ¼Ê¸÷¸öWEB·þÎñÆ÷»á¹æ¶¨¶ÔpostÌá½»Êý¾Ý´óÐ¡½øÐÐÏÞÖÆ£¬Apache¡¢IIS6¶¼ÓÐ¸÷×ÔµÄÅäÖÃ¡£
+HTTPåæ²¡å¸æºè½å°ç–²HTTPåå¨£å…‘è£æURLå†‰å•¤å®žå£«å†™è¯˜è¦æ ¡GET:å›Ÿå¤´URLç–²IEURLé¹Š2083çº¸(2K+35)NetscapeFireFoxé¾‹æ²¡è°ç–²å–è¯“ç³»ç»Ÿæ”¯å¸§ç¡•GETå³¤çš‡é™›å°±å‰URLé¹Šå•¤POST:è¯“é€šURLå€¼èŽ¶è•–å®žçŸ¢WEBå¨‘postå³¤æƒ è‘±âˆ‘ApacheIIS6æ‡ˆç¼˜è°©
 
-POSTµÄ°²È«ÐÔÒª±ÈGETµÄ°²È«ÐÔ¸ß¡£×¢Òâ£ºÕâÀïËùËµµÄ°²È«ÐÔºÍÉÏÃæGETÌáµ½µÄ¡°°²È«¡±²»ÊÇÍ¬¸ö¸ÅÄî¡£Í¨¹ýGETÌá½»Êý¾Ý£¬ÓÃ»§ÃûºÍÃÜÂë½«Ã÷ÎÄ³öÏÖÔÚURLÉÏ£¬ÒòÎª
+POSTé™Œå…¨è¦GETé™Œå…¨æ„¿æ‘ºæ³¨çŒ“æ ¸çš„å­GETå²¬ä¾¥âˆªã€‚é€šGETå³¤æƒ ï¼£æµ‘å°†æŸURLå¸Œä¸º
 
-1 µÇÂ¼Ò³ÃæÓÐ¿ÉÄÜ±»ä¯ÀÀÆ÷»º´æ£¬ÆäËûÈË²é¿´ä¯ÀÀÆ÷µÄÀúÊ·¼ÍÂ¼£¬ÄÇÃ´±ðÈË¾Í¿ÉÒÔÄÃµ½ÄãµÄÕËºÅºÍÃÜÂëÁË
-2 Ê¹ÓÃGETÌá½»Êý¾Ý»¹¿ÉÄÜ»áÔì³ÉCross-site request forgery¹¥»÷
+1 å½•é¡µé”Œé¼™éª°æå¦«æŸ¥çœ‹å²å½•ä¹ˆå¸æ¶‚çŽ«æ’•è—•
+2 ä½¿GETå³¤æƒ å‰Cross-site request forgery
 
 
 
 4
-ºÜ¶àÈËÌ°·½±ã£¬¸üÐÂ×ÊÔ´Ê±ÓÃÁËGET£¬ÒòÎªÓÃPOST±ØÐëÒªµ½FORM£¨±íµ¥£©£¬ÕâÑù»áÂé·³Ò»µã¡£¶Ô×ÊÔ´µÄÔö£¬É¾£¬¸Ä£¬²é²Ù×÷£¬ÆäÊµ¶¼¿ÉÒÔÍ¨¹ýGET/POSTÍê³É£¬²»ÐèÒªÓÃµ½PUTºÍDELETE¡£
+èŠè´ªæ‚–è¯GETä¸ºPOSTè¦FORMæ¦‰éª‹æ±‡ã€‚æºåˆ æ¨¡å®žé€šGET/POSTæ¡‘è¦çŽ«PUTDELETE
 
 
 
 5
-HTTPÏìÓ¦¸ñÊ½£º
+HTTPåº”å¼
 <status line>
 <headers>
 <blank line>
 [<response-body>]
 
-ÔÚÏìÓ¦ÖÐÎ¨Ò»ÕæÕýµÄÇø±ðÔÚÓÚµÚÒ»ÐÐÖÐÓÃ×´Ì¬ÐÅÏ¢´úÌæÁËÇëÇóÐÅÏ¢¡£×´Ì¬ÐÐ£¨status line£©Í¨¹ýÌá¹©Ò»¸ö×´Ì¬ÂëÀ´ËµÃ÷ËùÇëÇóµÄ×ÊÔ´Çé¿ö¡£ 
+åº”å”¯ä¸€è¯˜ä¸€çŠ¶æ€æ¯æ¯çŠ¶æ€æ ¡status lineé€šå³â”®è›”åˆºç¿Ÿ 
       
-HTTPÏìÓ¦ÊµÀý£º
+HTTPåº”å®ž
 HTTP/1.1 200 OK
 Date: Sat, 31 Dec 2005 23:59:59 GMT
 Content-Type: text/html;charset=ISO-8859-1
 Content-Length: 122
-£¼html£¾
-	£¼head£¾	
-		£¼title£¾Wrox Homepage£¼/title£¾
-	£¼/head£¾	
-	£¼body£¾
-		£¼!-- body goes here --£¾
-	£¼/body£¾
-£¼/html£¾
+html
+	head	
+		titleWrox Homepage/title
+	/head	
+	body
+		!-- body goes here --
+	/body
+/html
 
 
 
 6
-³£ÓÃµÄ×´Ì¬ÂëÓÐ£º
-¡ô200 (OK): ÕÒµ½ÁË¸Ã×ÊÔ´£¬²¢ÇÒÒ»ÇÐÕý³£¡£
-¡ô304 (NOT MODIFIED): ¸Ã×ÊÔ´ÔÚÉÏ´ÎÇëÇóÖ®ºóÃ»ÓÐÈÎºÎÐÞ¸Ä¡£ÕâÍ¨³£ÓÃÓÚä¯ÀÀÆ÷µÄ»º´æ»úÖÆ¡£
-¡ô401 (UNAUTHORIZED): ¿Í»§¶ËÎÞÈ¨·ÃÎÊ¸Ã×ÊÔ´¡£ÕâÍ¨³£»áÊ¹µÃä¯ÀÀÆ÷ÒªÇóÓÃ»§ÊäÈëÓÃ»§ÃûºÍÃÜÂë£¬ÒÔµÇÂ¼µ½·þÎñÆ÷¡£
-¡ô403 (FORBIDDEN): ¿Í»§¶ËÎ´ÄÜ»ñµÃÊÚÈ¨¡£ÕâÍ¨³£ÊÇÔÚ401Ö®ºóÊäÈëÁË²»ÕýÈ·µÄÓÃ»§Ãû»òÃÜÂë¡£
-¡ô404 (NOT FOUND): ÔÚÖ¸¶¨µÄÎ»ÖÃ²»´æÔÚËùÉêÇëµÄ×ÊÔ´¡£
+çŽ«çŠ¶æ€æ ¡
+200 (OK): ä¸šçƒæºä¸€
+304 (NOT MODIFIED): æºæ´—ä¹‹æ²¡é­è–·æ‘¹é€šå¹•å•¤
+401 (UNAUTHORIZED): çªæƒçŸ¢æºé€šä½¿è¦æ²¡æ²¡è€„å¾·
+403 (FORBIDDEN): çªæœªèŠ‘æƒé€š401ä¹‹çž¬ç¡®æ²¡æ¿
+404 (NOT FOUND): æŒ‡ä½è²Œæº
 
 
 
 7
 HTTP GET
 
-·¢ËÍ
+
 
 GET /DEMOWebServices2.8/Service.asmx/CancelOrder?
 
 UserID=string&PWD=string&OrderConfirmation=string HTTP/1.1
 Host: api.efxnow.com
 
-»Ø¸´
+é¦—
 
 HTTP/1.1 200 OK
 Content-Type: text/xml; charset=utf-8
@@ -128,7 +128,7 @@ Content-Length: length
 
 HTTP POST
 
-·¢ËÍ
+
 
 POST /DEMOWebServices2.8/Service.asmx/CancelOrder HTTP/1.1
 Host: api.efxnow.com
@@ -137,7 +137,7 @@ Content-Length: length
 
 UserID=string&PWD=string&OrderConfirmation=string
 
-»Ø¸´
+é¦—
 
 HTTP/1.1 200 OK
 Content-Type: text/xml; charset=utf-8
@@ -156,7 +156,7 @@ Content-Length: length
 
 SOAP 1.2
 
-·¢ËÍ
+
 
 POST /DEMOWebServices2.8/Service.asmx HTTP/1.1
 Host: api.efxnow.com
@@ -178,7 +178,7 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
 </soap12:Body>
 </soap12:Envelope>
 
-»Ø¸´
+é¦—
 
 HTTP/1.1 200 OK
 Content-Type: application/soap+xml; charset=utf-8
