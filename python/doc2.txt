@@ -182,3 +182,8 @@ syncdb½ö½ö´´½¨Êý¾Ý¿âÀï»¹Ã»ÓÐµÄ±í£¬Ëü ²¢²» ¶ÔÄãÊý¾ÝÄ£ÐÍµÄÐÞ¸Ä½øÐÐÍ¬²½,Ò²²»´¦ÀíÊý¾
 ÓÃsession ¿ò¼ÜÀ´´æÈ¡Ã¿¸ö·ÃÎÊÕßÈÎÒâÊý¾Ý£¬ ÕâÐ©Êý¾ÝÔÚ·þÎñÆ÷¶Ë´æ´¢£¬²¢¶ÔcookieµÄÊÕ·¢½øÐÐÁË³éÏó¡£ CookiesÖ»´æ´¢Êý¾ÝµÄ¹þÏ£»á»°ID£¬¶ø²»ÊÇÊý¾Ý±¾Éí£¬´Ó¶ø±ÜÃâÁË´ó²¿·ÖµÄ³£¼ûcookieÎÊÌâ
 
 Èç¹û²»ÐèÒªsession¹¦ÄÜ£¬Äã¿ÉÒÔÉ¾³ý MIDDLEWARE_CLASSES ÉèÖÃÖÐµÄ SessionMiddleware ºÍ INSTALLED_APPS ÉèÖÃÖÐµÄ 'django.contrib.sessions'
+
+
+
+13
+Django Ä£°åÊÇÀûÓÃ {{ variables }} ºÍ {% tags %} ÖÐÇ¶ÈëµÄÎÄ±¾´´½¨µÄ¡£±äÁ¿»áÊ¹ÓÃËüÃÇ±íÊ¾µÄÖµ½øÐÐ¼ÆËãºÍÌæ»»¡£±ê¼ÇÓÃÀ´ÊµÏÖ»ù±¾µÄ¿ØÖÆÂß¼­¡£Ä£°å¿ÉÒÔÓÃÀ´Éú³ÉÈÎºÎ»ùÓÚÎÄ±¾µÄ¸ñÊ½£¬°üÀ¨ HTML¡¢XML¡¢CSV ºÍ´¿ÎÄ±¾¡£

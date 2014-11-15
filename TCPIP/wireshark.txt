@@ -1,0 +1,42 @@
+1
+选择 capture -> options。
+- 填写"capture filter"栏或者点击"capture filter"按钮为您的过滤器起一个名字并保存，以便在今后的捕捉中继续使用这个过滤器。
+- 点击开始（Start）进行捕捉。
+
+
+
+2
+语法：
+tcp dst 10.1.1.1 80
+查看使用tcp协议，目标是10.1.1.1:80以及目标是10.2.2.2:3128的包
+
+在dst位置可能的取值可以是src, dst, src and dst, src or dst
+
+
+
+3
+tcp dst port 3128 显示目的TCP端口为3128的封包
+
+ip src host 10.1.1.1 显示来源IP地址为10.1.1.1的封包。
+
+host 10.1.2.3 显示目的或来源IP地址为10.1.2.3的封包。
+
+src portrange 2000-2500 显示来源为UDP或TCP，并且端口号在2000至2500范围内的封包。
+
+not imcp 显示除了icmp以外的所有封包
+
+
+
+4
+显示过滤器：
+
+snmp || dns || icmp	显示SNMP或DNS或ICMP封包。
+
+ip.addr == 10.1.1.1 显示来源或目的IP地址为10.1.1.1的封包。
+
+ip.src != 10.1.2.3 or ip.dst != 10.4.5.6 显示来源不为10.1.2.3或者目的不为10.4.5.6的封包。
+
+tcp.port == 25	显示来源或目的TCP端口号为25的封包。
+tcp.dstport == 25	显示目的TCP端口号为25的封包。
+tcp.flags	显示包含TCP标志的封包。
+tcp.flags.syn == 0x02	显示包含TCP SYN标志的封包。
