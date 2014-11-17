@@ -1,0 +1,68 @@
+1
+在脚本中使用
+set -x 可以打开调试模式 
+set +x 可以关闭
+
+
+
+2
+/dev/null看作"黑洞". 所有写入它的内容都会永远丢失.读取只有EOF
+/dev/zero产生连续不断的二进制0
+
+
+
+3
+/dev/loop（或称vnd (vnode disk)、lofi（循环文件接口））是一种伪设备，这种设备使得文件可以如同块设备一般被访问。
+
+在使用之前，循环设备必须与现存文件系统上的文件相关联。这种关联将提供给用户一个应用程序接口，接口将允许文件视为块特殊文件使用。因此，如果文件中包含一个完整的文件系统，那么这个文件就能如同磁盘设备一般被挂载。
+
+这种设备文件经常被用于光盘或是磁盘镜像（IOS、IMG）。通过循环挂载来挂载包含文件系统的文件，便使处在这个文件系统中的文件得以被访问。这些文件将出现在挂载点目录。
+
+
+
+4
+在一个目录上挂载包含包含文件系统的文件的步骤：
+1. 使用一个循环设备（/dev/loop）连接文件（使用命令 losetup）
+2. 在目录上挂载该循环设备（使用命令 mount）
+ 
+losetup /dev/loop0 sample.img  
+mount /dev/loop0 /mnt/point  
+# 等价于 mount -o loop sample.img /mnt/point  
+  
+卸载   umount /mnt/point  
+查看所有与文件相关联的 loop 设备 losetup -a  
+losetup -d /dev/loop0  
+
+
+
+5
+mount [-t vfstype] [-o options] device dir 
+
+vfstype是文件系统的类型fat16：msdos fat32：vfat ntfs文件系统：ntfs 其他的例如ext2
+option主要用来描述设备或档案的挂接方式
+loop：用来把一个文件当成硬盘分区挂接上系统 
+ro：采用只读方式挂接设备 
+rw：采用读写方式挂接设备 
+
+
+
+6
+dd
+dd if=/dev/zero of=file.img bs=1024 count=10000
+bs 相当于同时设定ibs和obs的 block size。count指明块数量
+还可以指定conv参数
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,25 @@
+重装windows后重新引导
+1
+使用可引导的usb或光盘，启动live模式
+sudo -i提升权限，fdisk -l查看分区
+mount /dev/sda1 /mnt
+grub-install --root-directory=/mnt /dev/sda
+
+2
+使用easybcd在windows下，添加grub2，启动会grub rescue
+使用ls （hdx,y）查看
+set root=(hdx,y)
+set prefix=(hdx,y)/grub
+insmod normal
+normal
+  可能会启动紫色的引导栏中，也可能到minigrub中，如果后者
+    set root=(hdx,y)
+    set prefix=(hdx,y)/boot/grub
+    normal
+回到ubuntu系统中之后，提升权限，然后update-grub
+如果要使用grub引导，再 grub-install /dev/sda
+
+怎样硬盘引导的ubutnu镜像
+
+
+
