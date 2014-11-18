@@ -7,7 +7,7 @@ set +x 可以关闭
 
 2
 /dev/null看作"黑洞". 所有写入它的内容都会永远丢失.读取只有EOF
-/dev/zero产生连续不断的二进制0
+/dev/zero产生连续的0
 
 
 
@@ -21,7 +21,7 @@ set +x 可以关闭
 
 
 4
-在一个目录上挂载包含包含文件系统的文件的步骤：
+在一个目录上挂载包含包文件系统的文件的步骤：
 1. 使用一个循环设备（/dev/loop）连接文件（使用命令 losetup）
 2. 在目录上挂载该循环设备（使用命令 mount）
  
@@ -54,15 +54,119 @@ bs 相当于同时设定ibs和obs的 block size。count指明块数量
 
 
 
+7
+find path  -name tobe_found -op
+
+path指明要在何处查找
+tobe_found是要查找的文件，往往会以正则表达式的形式出现
+-op可以是
+  -exec 将找到的文件传给下一个命令 command { } \;有空格
+  -ok和exec相似但是交互式的
+  -print 打印出来
+  -perm 777查找777权限文件
+-type 按照类型查找，要放在-name之前
+
+find    /home    -size    +512k                 查大于512k的文件
+find    /home    -size    -512k                 查小于512k的文件
+find    /mnt    -name tom.txt    -ftype vfat    在/mnt下查找名称为tom.txt且文件系统类型为vfat的文件
+find    /mnt    -name tom.txt  ! -ftype vfat    在/mnt下查找名称为tom.txt且文件系统类型不为vfat的文件
+find    .    -type l    -print $find    .    -size    +1000000c    -print         #查长度大于1Mb的文件
+find    .    -size    100c          -print     查长度为100c的文件
+find    /home     -atime    -1                 查1天之内被存取过的文件
+find    /home     -mmin     +60                在/home下查60分钟前改动过的文件
+find    /home     -amin     +30                查最近30分钟前被存取过的文件
+find    /home     -newer    tmp.txt            在/home下查更新时间比tmp.txt近的文件或目录
+find    /home     -anewer   tmp.txt            在/home下查存取时间比tmp.txt近的文件或目录
+find    /home     -used     -2                 列出文件或目录被改动过之后，在2日内被存取过的文件或目录
 
 
 
+8
+设置一个新的环境变量hello
+export HELLO="Hello!"
+echo $HELLO
 
 
 
+9
+环境变量分为 set, env两种，set变量里包含了env变量，但set变量不一定都是env变量。这两种变量不同之处在于变量的作用域不同
+set 变量可以通过 export 工具导入到 env 变量中
+
+export将变量放进环境中
+
+可使用env和set分别查看所有的环境变量和shell定义的变量
+使用unet 某个环境变量 来清除
+readonly 将某个环境变量设置为只读形式
+为path增加新的值
+	export path=$path:新路径
 
 
 
+10
+临时的环境变量使用export命令即可设置，shell退出时失效
+永久的环境变量需要修改配置文件
+
+/etc/profile文件中添加变量，对所有用户生效(永久的)。修然后 source /etc/profile不然只能在下次重进此用户时生效。
+export CLASSPATH=./JAVA_HOME/lib;$JAVA_HOME/jre/lib
+
+在用户目录下的.bash_profile或.profile文件中增加变量,对单一用户生效,永久。要立即生效使用source
+export CLASSPATH=./JAVA_HOME/lib;$JAVA_HOME/jre/lib
+
+直接运行export命令定义变量，只对当前shell有效，临时
 
 
 
+11
+-c ：建立一个压缩文件的参数指令(create 的意思)； 
+-x ：解开一个压缩文件的参数指令！ 
+-t ：查看 tarfile 里面的文件！ 
+	 c/x/t 仅能存在一个！不可同时存在！因为不可能同时压缩与解压缩。 
+-z ：是否同时具有 gzip 的属性？ 	.gzip
+-j ：是否同时具有 bzip2 的属性？	.gzip2
+-v ：执行时显示文件  
+-f ：使用档名，在 f 之后要立即接档名，错误tar -zcvfP tfile sfile 
+-p ：使用原文件的原来属性（属性不会依据使用者而变） 
+-P ：可以使用绝对路径来压缩！ 
+-N ：比后面接的日期(yyyy/mm/dd)还要新的才会被打包进新建的文件中
+--exclude FILE：在压缩的过程中，排除某文件
+
+例
+将/etc 目录下文件打包为 /tmp/etc.tar 要压缩加上z或j属性
+tar -cvf /tmp/etc.tar /etc 
+
+查看某压缩文件内的文件
+tar -tzvf onefile.tar.gz
+
+tar -zxvf /tmp/etc.tar.gz 将这个压缩文件解压到当前目录下
+tar -zxvpf /tmp/etc.tar.gz /etc 	保留属性
+tar -N "2005/06/01" -zcvf home.tar.gz /home        2005/06/01 新的文件压缩打包
+tar --exclude /home/dmtsai -zcvf myfile.tar.gz /home/* /etc 将压缩两个文件夹内容，排除某些文件
+
+
+
+12
+通过使用${#var}获取变量长度
+对数组，元素个数
+对整型数字，十进制的位数
+
+使用let 可以不用加(()) 不用$
+
+
+
+13
+shell中使用hash表，类似字典
+declare -A array1
+array1可以使用任意的标识符做下标访问
+array[age] = 12
+array[anme] = "qwe"
+
+
+
+14
+IFS 是一种 set 变量，当 shell 处理"命令替换"和"参数替换"时，shell 根据 IFS 的值，默认是 space, tab, newline 来拆解读入的变量，然后对特殊字符进行处理，最后重新组合赋值给该变量
+
+替换运算符
+${varname:?msg }如果varname存在且非null则返回值，否则返回null
+${varname:-word}如果varname存在且非null则返回值，否则返回word
+${varname:-word}如果varname存在且非null则返回值，否则设置varname值为word
+${varname:?msg }如果varname存在且非null则返回值，否则返回消息msg，并退出
