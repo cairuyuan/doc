@@ -1,0 +1,82 @@
+1
+照POSIX 1003.1c 标准编写的程序与Linuxthread 库相链接即可支持Linux平台上的多线程
+gcc -D -REENTRANT -lpthread xxx. c
+-REENTRANT宏使得相关库函数(如stdio.h、errno.h中函数) 是可重入的、线程安全的
+-lpthread则意味着链接库目录下的libpthread.a或libpthread.so文件
+Linuxthread库需要2.0以上版本的Linux内核及相应版本的C库(libc 5.2.18、libc 5.4.12、libc 6
+
+
+
+2
+创建线程
+pthread_create(pthread_t *thread, const pthread_attr_t *attr, void * 
+(start_routine)(void*), void *arg);
+
+start_routine为新线程的入口函数，arg为传递给start_routine的参数。所有参数都应该传引用传递并转化成（void*）。
+
+使用pthread_self(void)调用获取自己的线程ID。pthread_attr_init 和 pthread_attr_destroy用于初始化/销毁先成属性对象。
+
+
+
+3
+pthread_join()函数阻赛调用线程直到threadid所指定的线程终止。
+
+查询设置栈大小
+
+退出
+1   执行完退出
+2   pthread_exit (void * retval)
+3   pthread_cance (pthread_t thread) 
+
+
+
+4锁
+int x; // 进程中的全局变量 
+pthread_mutex_t mutex; 
+pthread_mutex_init(&mutex, NULL); //按缺省的属性初始化互斥体变量mutex 
+pthread_mutex_lock(&mutex); // 给互斥体变量加锁 
+… //对变量x 的操作 
+phtread_mutex_unlock(&mutex); // 给互斥体变量解除锁
+
+
+
+5
+信号量，头文件semaphore.h 中定义的信号量则完成了互斥体和条件变量的封装
+
+sem_init(sem_t *sem, int pshared, unsigned int val); 初始化一个信号量sem 的值为val。sem_wait(sem_t *sem) 相当于down操作，sem_post(sem_t *sem) 相当于UP操作
+
+
+
+
+
+6
+同步就是线程等待某个事件的发生。只有当等待的事件发生线程才继续执行，否则线程挂起并放弃处理器
+条件变量必须声明为pthreadcondt类型，必须在使用前初始化
+
+在条件变量上等待（Waiting）和发送信号（Signaling）
+pthread_cond_wait (condition,mutex)  
+pthread_cond_signal (condition)  
+pthread_cond_broadcast (condition)  
+
+
+7
+主线程（Main Thread）  
+o                                声明和初始化需要同步的全局数据/变量（如“count”） 
+o                                生命和初始化一个条件变量对象 
+o                                声明和初始化一个相关的互斥量 
+o                                创建工作线程A和B 
+
+Thread A  
+o                                工作，一直到一定的条件满足（如“count”等于一个指定的值） 
+o                                锁定相关互斥量并检查全局变量的值 
+o                                调用pthread_cond_wait()阻塞等待Thread-B的信号。注意pthread_cond_wait()能够自动地并且原子地解锁相关的互斥量，以至于它可以被Thread-B使用。 
+o                                当收到信号，唤醒线程，互斥量被自动，原子地锁定。 
+o                                显式解锁互斥量 
+o                                继续 
+Thread B  
+o                                工作 
+o                                锁定相关互斥量 
+o                                改变Thread-A所等待的全局变量 
+o                                检查全局变量的值，若达到需要的条件，像Thread-A发信号。 
+o                                解锁互斥量 
+o                                继续 
