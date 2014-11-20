@@ -5,6 +5,12 @@ gcc -D -REENTRANT -lpthread xxx. c
 -lpthread则意味着链接库目录下的libpthread.a或libpthread.so文件
 Linuxthread库需要2.0以上版本的Linux内核及相应版本的C库(libc 5.2.18、libc 5.4.12、libc 6
 
+从2.5开始Linux内核采用了NPTLNative Posix Thread Library）方式
+现在ubuntu 14.04桌面版中查看
+Linux version 3.13.0-32-generic (buildd@roseapple) (gcc version 4.8.2 (Ubuntu 4.8.2-19ubuntu1) ) #57-Ubuntu SMP Tue Jul 15 03:51:12 UTC 2014
+qwe@qwe-X300V:~$ getconf GNU_LIBPTHREAD_VERSION
+NPTL 2.19
+
 
 
 2
@@ -80,3 +86,38 @@ o                                改变Thread-A所等待的全局变量
 o                                检查全局变量的值，若达到需要的条件，像Thread-A发信号。 
 o                                解锁互斥量 
 o                                继续 
+
+
+
+8
+条件变量允许线程因为某些条件不满足而阻塞
+pthread_cond_wait阻塞调用线程，通常是等待发信号的线程做某些工作
+pthread_cond_signal向另外（参数）线程发信号来唤醒它
+
+条件变量经常和互斥量一起使用，让一个线程使用互斥量锁住资源，在资源属性还不能满足时，在条件变量上等待。
+
+
+
+9
+类Unix系统中一般通过修改进程的实现方式来完成，可以使用不完全的进程创建方式创建共享数据空间的进程，在 Linux下这种系统调用为clone()，而在FreeBSD下它为rfork()
+
+N∶1用户线程模型：N条用户线程只由一条内核进程/线程调度，即以用户态线程实现。内核不干涉线程的任何生命活动，用户态线程工作在“进程竞争范围”。因此，线程的创建、删除和环境切换都很高效。
+但是缺点同样明显，因为一个进程同一时间只能在一个CPU中执行。所以在SMP中，无论系统有多少CPU，同一进程中的所有线程都只能由一个CPU去执行。
+另外，如果其中某条线程被阻塞，比如read和write，那么整个进程中的其它线程都会被阻塞
+采用这种模型的有，FreeBSD下的libc_r
+
+1∶1 核心线程模型：1条用户线程对应一条内核进程/线程来调度，即以核心态线程实现。应用程序创建的每一个线程都由一个核心线程直接管理，内核将每一个核心线程都调度到系统CPU上。
+所有线程都工作在“系统竞争范围”。这种方式也是现在大多线程库采用的模式。它完全克服了N：1模型的缺点，但较之在线程的创建、删除、切换的代价更昂贵。
+
+NPTL是采用1对1模型的，每创建一用户线程，就会有一个内核中调度实体
+
+
+
+10
+linux下动态链接库的查找顺序是：
+    1.LD_LIBRARY_PATH下的库
+    2.系统缺省库路径/lib and /usr/lib
+    3./etc/ld.so.conf 里指定的一系列路径。
+
+ldconfig -p 可以打印出ldconfig的缓存/etc/ld.so.cache
+
