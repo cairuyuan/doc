@@ -145,3 +145,4 @@ os.path.islink()	指定路径是否存在且为一个符号链接
 True  
 >>> os.path.isdir(f.name)  
 False  
+
