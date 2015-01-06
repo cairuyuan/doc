@@ -1,0 +1,151 @@
+1
+启动数据库
+*/mongod --dbpath path
+
+
+
+
+2
+连接数据库
+mongo -u name IP:port/dbname -p		会验证密码
+
+
+
+3
+数据库对应  db
+创建方法。。。use 然后用db.createCollection('name')创建一个表，可为空
+
+表对应 collection
+
+
+
+4
+查询到的数据使用tojson后可以转为可读状态
+
+
+
+
+5
+admin use admin
+db.addUser('name','pwd')
+db.removeUser('name')
+show users
+show dbs
+show collections
+db.repairDatabase()
+db.dropDatabase()
+db.mail_addr.drop()
+db.user_addr.count()
+db.foo.remove({'yy':5})
+db.foo.remove()
+db.foo.find()
+db.foo.findOne()
+
+大小比较  $gt $gte $lt $lte $ne
+
+以年龄升序asc 
+db.users.find().sort({age: 1}); 
+以年龄降序desc 
+db.users.find().sort({age: -1}); 
+
+db.users.find().count(); 
+db.users.find({age:18}).count(); 
+
+
+
+7
+db.copyDatabase("mydb", "temp", "127.0.0.1");  
+
+tojson(new Object());  
+tojson(new Object('a')); 
+printjson(cursor.next());   
+
+
+var cursor = db.users.find();  
+cursor[4];  
+
+var cursor = db.users.find();  
+while (cursor.hasNext()) { printjson(cursor.next); }  
+
+db.users.find().forEach(printjson);  
+
+
+
+
+8
+pymongo
+http://api.mongodb.org/python
+
+$ git clone git://github.com/mongodb/mongo-python-driver.git pymongo
+$ cd pymongo/
+$ python setup.py install
+
+linux 
+wget http://pypi.python.org/packages/source/p/pymongo/pymongo-1.9.tar.gz
+tar zxvf pymongo-1.9.tar.gz  
+sudo apt-get install build-essential python-dev
+sudo yum install gcc python-devel
+
+python连接mongo
+import pymongo
+连接  conn = pymongo.Connection('localhost',27017)或 conn = pymongo.Connection(host='127.0.0.1',port=27017)
+连接数据库 db = conn.ChatRoom  或   db = conn['ChatRoom']
+连接表     account = db.Account  account = db["Account"]
+
+可以使用account替换db.Account
+
+返回的数据已经unjson
+db.Account.find_one()
+db.Account.find_one({"UserName":"keyword"})
+
+for item in db.Account.find({"UserName":"libing"}):
+    item
+
+>>> db.Account.find().sort("UserName")  --默认为升序
+>>> db.Account.find().sort("UserName",pymongo.ASCENDING)   --升序
+>>> db.Account.find().sort("UserName",pymongo.DESCENDING)  --降序
+
+db.Account.insert({"AccountID":21,"UserName":"libing"})
+db.Account.update({"UserName":"libing"},{"$set":{"Email":"libing@126.com","Password":"123"}}
+
+db.Test.remove({"UserName":"keyword"})
+db.Account.remove()   -- 全部删除
+
+
+
+9
+
+SQL Statement
+
+pymongo Statement
+
+CREATE TABLE users (name VARCHAR(64), age INT); from pymongo import *
+ conn = Connection(host, port)
+ db = conn[dbname]
+ users = db['users'] 
+
+INSERT INTO users VALUES('tom', 30); 				users.insert({'name':'Tom', 'age':30}) 
+SELECT * FROM users; 						users.find() 
+SELECT name, age FROM users;					users.find({}, {'name':1, 'age':1}) 
+SELECT * FROM users WHERE age = 30; 				users.find({'age':30}) 
+SELECT name, age FROM users WHERE age = 30; 			users.find({'age':30}, {'name':1, 'age':1}) 
+SELECT * FROM users WHERE age = 30 ORDER BY name ASC, age DESC; users.find({'age':30}).sort([('name',ASCENDING), ('age',DESCENDING)]) 
+SELECT * FROM users WHERE age > 30; 				users.find({'age':{'$gt':30}}) 
+SELECT * FROM users WHERE age > 30 AND age <= 40; 		users.find({'age':{'$gt':30, '$lte':40}}) 
+SELECT * FROM users WHERE age IN(30,40); 			users.find({'age':{'$in':[30,40]}}) 
+SELECT * FROM users WHERE name LIKE 'Tom%'; 			users.find({'name':{'$regex':'^Tom'}}) 
+SELECT * FROM users WHERE age = 30 AND name = 'Tom'; 		users.find({'age':30, 'name':'Tom'}) 
+SELECT * FROM users WHERE age = 30 OR name = 'Tom'; 		users.find({'$or':[{'age':30}, {'name':'Tom'}]}) 
+CREATE INDEX idx_name ON users (name, age DESC); 		users.create_index([('name',ASCENDING), ('age',DECENDING)], unique=T/F, dropDups=T/F) 
+ALTER TABLE users DROP INDEX idx_name; 				users.drop_index(idx_name) 
+EXPLAIN SELECT … 						users.find(…).explain() 
+SELECT DISTINCE name FROM users; 				users.distinct('name') 
+SELECT COUNT(*) from users; 					users.count() 
+SELECT COUNT(*) from users WHERE … 				users.find(…).count() 
+UPDATE users SET age = 31 WHERE name = 'Tom'; 			users.update({'name':'Tom'}, {'$set': {'age':31}}) 
+UPDATE users SET age=age+1 WHERE name = 'Tom'; 			users.update({'name':'Tom'}, {'$inc': {'age':1}}) 
+REPLACE INFO… 							users.update({'name':'Tom'}, {'$set': {'age':31}}, True) 
+DELETE from users; 						users.remove() 
+DELETE form users WHERE name = 'Tom'; 				users.remove({'name':'Tom'}) 
+DROP TABLE users;	 					users.drop() 
+

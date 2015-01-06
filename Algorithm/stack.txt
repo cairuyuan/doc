@@ -1,0 +1,8 @@
+1
+出栈顺序，如果进入的顺序为ABCDE，检查哪一个出栈顺序是有效的。对任一字母，比如D，已经出栈，那么前面的字母ABC，如果在D之后出栈（在D之前已经出栈的不算），顺序一定是反的。
+ADBEC不对，BDECA是对的
+
+2
+n元素，进栈顺序固定，多少种出栈顺序？Catalan数：http://en.wikipedia.org/wiki/Catalan_number
+f(0) = 1
+f(n) = f(0)*f(n-1) + f(1)*f(n-2) + ... + f(n-1)*f(0)
