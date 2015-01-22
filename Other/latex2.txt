@@ -1,0 +1,42 @@
+1
+常见头部
+\documentclass{article}
+\author{cairuyuan}
+\title{Operating system chapter 3}
+\usepackage{ctex}
+
+\begin{document}
+\end{document}
+
+
+
+2
+定义章节	\section{ ... }
+定义子章节	\subsection{ ... }
+定义段落	\paragraph
+定义子段落	\subparagraph
+
+
+
+3
+不缩进		\noindent
+分段		\\
+幂		2^{32}
+除		\div
+乘		\times
+公式区		$ ... $
+前后分段公式区	$$ ... $$				不编号
+同上		\begin{equation} ... \end{equation}	编号
+同上		\begin{displaymath}不编号
+两个回车当作一个分段
+
+
+
+4
+\mbox{}		将大括号内的文字排在一行
+\fbox{}		同义，另加外框
+双引号		两个同方向单引号
+波浪号		\~或$\sim$效果不同
+度		按照指数方式放在右上角，用\circ
+省略号		\ldots
+直接打印	\begin{verbatim}和\end{verbatim}
