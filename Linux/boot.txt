@@ -1,4 +1,4 @@
-重装windows后重新引导
+﻿重装windows后重新引导
 1
 使用可引导的usb或光盘，启动live模式
 sudo -i提升权限，fdisk -l查看分区
@@ -25,7 +25,7 @@ normal
 	b  找一个镜像如ubuntu-14.04.1-desktop-i386.iso，提取casper中的initrd.lz和vmlinuz两个文件
 	c  三个文件复制到某个盘的根目录
 	d  编写引导文件：
-
+#umount -l /isodevice
 title Install Ubuntu
 root (hd0,0)
 kernel (hd0,0)/vmlinuz boot=casper iso-scan/filename=/ubuntu-14.04.1-desktop-i386.iso ro quiet splash locale=zh_CN.UTF-8
@@ -34,3 +34,9 @@ initrd (hd0,0)/initrd.lz
 #其中hd后面的0表示第1个硬盘，第2个0是三个文件的分区，从0数。后面的文件名要一致
 
 
+
+3
+开机启动脚本可放在：/etc/init.d/rc.local文件中执行
+
+登陆启动脚本可放在：~/.profile中，或.bash_profile与.bash_login
+退出登录时执行.bash_logout 脚本

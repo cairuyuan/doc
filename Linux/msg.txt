@@ -1,0 +1,159 @@
+消息队列就是一个消息的链表。
+
+发送方不必等待接收方检查它所收到的消息就可以继续工作下去，而接收方如果没有收到消息也不需等待。这种通信机制相对简单，但是应用程序使用起来就需要使用相对复杂的方式来应付了。新的消息总是放在队列的末尾，接收的时候并不总是从头来接收，可以从中间来接收。
+
+消息队列是随内核持续的并和进程相关，只有在内核重起或者显示删除一个消息队列时，该消息队列才会真正被删除。因此系统中记录消息队列的数据结构 (struct ipc_ids msg_ids)位于内核中，系统中的所有消息队列都可以在结构msg_ids中中找到访问入口。
+
+内核中实现消息传递机制的代码基本上都在文件ipc／msg.c中,消息队列的主要调用有下面4个
+
+
+int msgget(key_t key , int msgflg)
+创建与访问一个消息队列。
+第一个参数是消息队列对象的关键字(key)，函数将它与已有的消息队列对象的关键字进行比较来判断消息队列对象是否已经创建。
+函数进行的具体操作是由第二个参数，msgflg 控制的。它可以取下面的几个值：
+IPC_CREAT ： 如果消息队列对象不存在，则创建之，否则则进行打开操作;
+IPC_EXCL  ： 和IPC_CREAT 一起使用（用”|”连接），如果消息对象不存在则创建之，否则产生一个 错误并返回。
+
+成功时msgget函数返回一个正整数，即队列标识符，失败时返回-1.
+
+
+
+int msgsnd(int msqid , const void *msg_ptr , size_t msg_sz , int msgflg);
+向一个消息队列发送一个消息，主要由sys_msgsnd执行。
+msqid     消息队列标识符，由msgget函数返回
+msg_ptr   发送消息的指针
+			msg_ptr所指向的消息结构一定要是以一个长整型成员变量开始的结构体
+			所以消息结构要定义成这样：
+				struct my_message{  
+    				long int message_type; 
+								};  
+msg_sz    msg_ptr指向的消息的长度
+msgflg    消息队列满或到达系统限制时将要发生的事情。可取0
+如果调用成功，消息数据的一分副本将被放到消息队列中，并返回0，失败时返回-1.
+
+
+int msgrcv(int msqid , void *msg_ptr , size_t msg_sz , long int msgtype , int msgflg);
+msgid msg_ptr msg_sz同上
+msgtype可以实现一种简单的接收优先级。类型在msg_ptr指向结构的第一个分量中指出
+	== 0，就获取队列中的第一个消息。
+	>  0，将获取具有相同消息类型的第一个信息。
+	<  0，就获取类型等于或小于msgtype的绝对值的第一个消息。
+msgflg用于控制当队列中没有相应类型的消息可以接收时将发生的事情。可取0
+
+
+
+int msgctl(int msgid , int cmd, struct msqid_ds *buf)
+操作控制函数
+第一个参数msqid是由msgget函数返回的消息队列的标识符。
+第二个参数command是将要采取的动作，它可以取三个值
+	IPC_STAT  把msqid_ds结构中的数据设置为消息队列的当前值
+	IPC_SET   如果进程有足够的权限，就把消息队列的当前关联值设置为msqid_ds结构中给出的值
+	IPC_RMID  删除消息队列。
+
+msqid_ds结构至少包含以下成员：
+	struct msqid_ds
+	{
+		uid_t msg_perm.uid;
+		uid_t msg_perm.gid;
+		mode_t msg_perm.mode;
+	}
+
+函数在成员共返回0，失败时返回-1.
+
+
+The ftok() function uses the identity of the file named by the given pathname (which must refer to an existing, accessible file) and the least significant 8 bits of proj_id (which must be nonzero) to generate a key_t type System V IPC key, suitable for use with msgget(2), semget(2), or shmget(2).
+
+
+
+与命名管道相比，消息队列的优势在于，
+
+1、消息队列也可以独立于发送和接收进程而存在，从而消除了在同步命名管道的打开和关闭时可能产生的困难。
+
+2、同时通过发送消息还可以避免命名管道的同步和阻塞问题，不需要由进程自己来提供同步方法。
+
+3、接收程序可以通过消息类型有选择地接收数据，而不是像命名管道中那样，只能默认地接收。
+
+
+
+#include <sys/types.h>  
+#include <sys/ipc.h>  
+#include <sys/msg.h>  
+#include <stdio.h>  
+  
+int     main()  
+{    
+    int     count = 0;                                                 /*打印奇数消息类型，发送偶数消息类型*/  
+    int     msqid;  
+    key_t   msgkey;  
+    struct  msgbuf  
+    {  
+        long    mtype;  
+        char    mdata[256];  
+    };  
+    struct  msgbuf  msgdata , *p ;  
+    p = &msgdata ;  
+    msgkey = ftok( "." , 'a' );                        		   /*计算标识符*/  
+    msqid = msgget( msgkey , IPC_CREAT | 0666 ) ;              /*取得消息队列的ID*/  
+  
+    while(1)  
+    {     
+        printf("MiiBotree : ");  
+        fflush( stdin );                          /*刷新标准输入缓冲区*/  
+        gets( p->mdata );                              /*输入字符串*/  
+        p->mtype = count;  
+      
+        if (!msgsnd( msqid , p , sizeof(p->mdata) , 0 ))               /*送消息*/  
+        {  
+            count = count + 2;  
+        }  
+  
+        msgrcv( msqid , p , sizeof(p->mdata) , count+1 , 0 ) ;    /*读消息*/  
+        if (p->mtype % 2 == 1){  
+            printf("Firefoxbug:%s\n", p->mdata);  
+            count += 2;  
+        }  
+          
+    }  
+    return 0;  
+}  
+//B.c  
+#include <sys/types.h>  
+#include <sys/ipc.h>  
+#include <sys/msg.h>  
+#include <stdio.h>  
+  
+int  main()  
+{  
+    int count = 1;          /*打印奇数消息类型，发送偶数消息类型*/  
+    int     msqid;  
+    key_t   msgkey;  
+    struct  msgbuf  
+    {  
+        long    mtype;  
+        char    mdata[256];  
+    };  
+    struct  msgbuf  msgdata , *p ;                                            
+    p = &msgdata ;  
+    msgkey = ftok ( "." , 'a' );                    
+    msqid = msgget( msgkey , IPC_CREAT | 0666 ) ;              
+          
+    while(1)  
+    {  
+        printf("Firefoxbug : ");  
+        fflush( stdin );                              
+        gets( p->mdata );                              
+        p->mtype = count;  
+        if (!msgsnd( msqid , p , sizeof(p->mdata) , 0 ))                   
+        {  
+            count = count + 2;  
+        }  
+  
+        msgrcv( msqid , p , sizeof(p->mdata) , count-1 , 0 ) ;     
+        if (p->mtype % 2 == 0){  
+            printf("MiiBotree:%s\n", p->mdata);  
+            count += 2;  
+        }  
+      
+    }  
+    return 0;  
+}  
