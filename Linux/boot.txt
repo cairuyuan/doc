@@ -46,3 +46,30 @@ initrd (hd0,0)/initrd.lz
 输入法
 系统安装64位english
 安装搜狗输入法 fcitx
+
+-----------------------------------------------------------------------------------------------------------------------
+1
+toInstall:
+mysql
+sublimetext
+svn
+git
+clang
+
+
+2
+config:
+gedit, color font side panel
+
+open terminal in this folder
+sudo apt-get install nautilus-open-terminal
+
+config the PATH
+
+for each OS init
+*	/etc/profile	export PATH=”$PATH:your path1:...” 
+for each usr login
+*	~/.profile	export PATH=”$PATH:your path1:...” 
+
+for a temp use in shell
+	$ sudo export PATH="$PATH:your path1:..." 
