@@ -40,3 +40,9 @@ initrd (hd0,0)/initrd.lz
 
 登陆启动脚本可放在：~/.profile中，或.bash_profile与.bash_login
 退出登录时执行.bash_logout 脚本
+
+
+4
+输入法
+系统安装64位english
+安装搜狗输入法 fcitx
