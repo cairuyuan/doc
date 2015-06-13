@@ -1,0 +1,17 @@
+针对UI47安装mac os的几个设定
+
+1 usb设置
+在bios中关闭usb3.0和xhci模式，不然会出现不识别
+
+
+2 声卡开启
+使用VoodooHDA.kext，安装到系统的Extensions中
+
+
+3 修改驱动
+替换系统的AppleACPIPlatform.kext, IO80211Family.kext
+删除系统的AppleIntelCPU电源管理，两个
+
+
+4 权限修复
+现在几乎已经不用，加上去使用－f开机即可
