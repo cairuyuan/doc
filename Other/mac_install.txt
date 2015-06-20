@@ -41,3 +41,11 @@ homebrew
     touch ~/My\ Applications/.localized
     echo 'export HOMEBREW_CASK_OPTS="--appdir=~/My\ Applications"' >> ~/.bash_profile
     source ~/.bash_profile
+
+
+7
+开启、关闭服务
+    通过命令 sudo /Library/StartupItems/MySQLCOM/MySQLCOM start/stop
+    或直接通过mysqld，不同的安装方式，启动方式略不同
+修改密码
+    /usr/local/mysql/bin/mysqladmin -u root -p password [password]
