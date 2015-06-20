@@ -1,27 +1,27 @@
-��Ҫ����http://www.cplusplus.com/reference/vector/vector/?kw=vector
+主要来自http://www.cplusplus.com/reference/vector/vector/?kw=vector
 
-vector��˳��洢�ģ���ͬ���飬���Ǵ�С�ǿɱ��
+vector是顺序存储的，如同数组，但是大小是可变的
 
-��������һ����vectorʹ�������Ĵ洢�ռ�洢Ԫ�أ�����ζ�ſ�������������ʹ���±�/offset����������Ԫ�أ��ǳ��Ŀ��ٸ�Ч�����ǲ�ͬ������Ĵ洢�ռ��С�ǹ̶��ģ�vector�Ĵ�С�����Զ��ı仯��
+就像数组一样，vector使用连续的存储空间存储元素，这意味着可以像数组那样使用下标/offset来访问任意元素，非常的快速高效。但是不同于数组的存储空间大小是固定的，vector的大小可以自动的变化。
 
-���ڲ�������vectorʹ�ö�̬�����������ʵ�֡����¼���Ԫ�ص�β������vector�Ŀռ䣨capacity���ֲ�����ʱ��vector��Ҫ���·���ռ䣺�·���һ����һ����ڴ������ٰ����е����ݸ��ƹ������ټ������������¼���Ԫ�ص��м䲿�֣��ڿռ乻�õ�����£���Ȼ��Ҫ�Ѳ�����Ժ��Ԫ������ƶ������ڳ�һ��λ�á��ⶼ�ǿ����ǳ���Ĳ�����
+从内部来看，vector使用动态分配的数组来实现。当新加入元素到尾部，而vector的空间（capacity）又不够用时，vector就要重新分配空间：新分配一个大一点的内存区，再把已有的数据复制过来，再继续操作。当新加入元素到中间部分，在空间够用的情况下，仍然需要把插入点以后的元素向后移动，以腾出一个位置。这都是开销非常大的操作。
 
-Ϊ�˼��ٷ���ռ�͸������ݴ����Ŀ�����vectoe������һЩ���ӵĿռ䣬����������������ʱʹ�á����Ƕ���Ŀռ��п��ܵ����˷ѣ����Ȩ�⣿��ͬ�Ŀ����ʹ�ò�ͬ�Ĳ��ԣ�����������Σ�logarithmically growing intervals of size ��������ռ�Ӧ����ʵ��ʹ�ÿռ䣨size����ָ����ʽ�������������Ա�֤��vector��β���������ݣ�push_back��ʱ��ʱ��Ŀ��������ǳ����ġ�
+为了减少分配空间和复制数据带来的开销，vectoe会请求一些附加的空间，方便往后添加数据时使用。但是额外的空间有可能导致浪费，如何权衡？不同的库可能使用不同的策略，但是无论如何（logarithmically growing intervals of size ），申请空间应该以实际使用空间（size）的指数形式增长，这样可以保证向vector的尾部添加数据（push_back）时，时间的开销近似是常数的。
 
-Ҳ����˵�����������,vectorʹ���˸���Ŀռ䣬������Ч�Ĺ����ռ��������
+也就是说，相比于数组,vector使用了更多的空间，来更有效的管理空间的增长。
 
-���������˳��洢���������磺˫�˶��У������ȣ�vector�ķ��ʣ�access�������ǳ���Ч����β�����ӻ�ɾ��Ԫ�أ���Ƚ���˵��Ҳ���Ǹ�Ϊ��Ч�ģ������������ط��Ĳ���ɾ���������Ƿǳ���Ч�ġ�
-
-
-����������
-Ԫ�����ϸ������˳�����У�����Ԫ�ؿ���ͨ�������������е�λ�������ʡ�
-
-֧��ֱ�ӷ��������е�Ԫ�أ�֧��ָ������㣬�ṩ��β������ ����/ɾ��Ԫ�صĽӿں���
-
-�Զ������ڴ��ʹ��
+相比于其他顺序存储容器，比如：双端队列，链表等，vector的访问（access）操作非常高效。在尾部添加或删除元素，相比较来说，也还是更为高效的，但是在其他地方的插入删除操作则是非常低效的。
 
 
-���캯��
+容器的属性
+元素以严格的线性顺序排列，单个元素可以通过他们在容器中的位置来访问。
+
+支持直接访问序列中的元素，支持指针的运算，提供在尾部快速 添加/删除元素的接口函数
+
+自动处理内存的使用
+
+
+构造函数
 default (1)	 explicit vector (const allocator_type& alloc = allocator_type());
 
 fill (2)	 explicit vector (size_type n);
@@ -41,9 +41,9 @@ initializer list (6)
 		 vector (initializer_list<value_type> il, const allocator_type& alloc = allocator_type());
 
 
-vector��ģ��
+vector的模板
 template < class T, class Alloc = allocator<T> > class vector; 
 
-T �������ͣ�int float���Լ��Զ������͵�
+T 数据类型，int float，以及自定义类型等
 
 

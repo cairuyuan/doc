@@ -1,4 +1,4 @@
-#include <iostream>
+ #include <iostream>
 #include <queue>
 using namespace std;
  
@@ -8,18 +8,18 @@ struct knight{
     bool operator < (const knight & k) const{ return f > k.f; }
 }k;
 
-bool visited[8][8];                                //ÒÑ·ÃÎÊ±ê¼Ç(¹Ø±ÕÁĞ±í)
-int x1,y1,x2,y2,ans;                               //Æğµã(x1,y1),ÖÕµã(x2,y2),×îÉÙÒÆ¶¯´ÎÊıans
-int dirs[8][2]={{-2,-1},{-2,1},{2,-1},{2,1},{-1,-2},{-1,2},{1,-2},{1,2}};//8¸öÒÆ¶¯·½Ïò
-priority_queue<knight> que;                        //×îĞ¡ÓÅÏÈ¼¶¶ÓÁĞ(¿ªÆôÁĞ±í)
+bool visited[8][8];                                //å·²è®¿é—®æ ‡è®°(å…³é—­åˆ—è¡¨)
+int x1,y1,x2,y2,ans;                               //èµ·ç‚¹(x1,y1),ç»ˆç‚¹(x2,y2),æœ€å°‘ç§»åŠ¨æ¬¡æ•°ans
+int dirs[8][2]={{-2,-1},{-2,1},{2,-1},{2,1},{-1,-2},{-1,2},{1,-2},{1,2}};//8ä¸ªç§»åŠ¨æ–¹å‘
+priority_queue<knight> que;                        //æœ€å°ä¼˜å…ˆçº§é˜Ÿåˆ—(å¼€å¯åˆ—è¡¨)
 
-bool in(const knight & a){                         //ÅĞ¶ÏknightÊÇ·ñÔÚÆåÅÌÄÚ
+bool in(const knight & a){                         //åˆ¤æ–­knightæ˜¯å¦åœ¨æ£‹ç›˜å†…
     return !(a.x<0 || a.y<0 || a.x>=8 || a.y>=8)
 }
-int Heuristic(const knight &a){                    //manhattan¹À¼Ûº¯Êı
+int Heuristic(const knight &a){                    //manhattanä¼°ä»·å‡½æ•°
     return (abs(a.x-x2)+abs(a.y-y2))*10;
 }
-void Astar(){                                      //A*Ëã·¨
+void Astar(){                                      //A*ç®—æ³•
     knight t,s;
     while(!que.empty()){
         t=que.top();que.pop();visited[t.x][t.y]=true;
@@ -31,7 +31,7 @@ void Astar(){                                      //A*Ëã·¨
             s.x=t.x+dirs[i][0];
 	    s.y=t.y+dirs[i][1];
             if(in(s) && !visited[s.x][s.y]){
-                s.g = t.g + 23;                 //23±íÊ¾¸ùºÅ5³ËÒÔ10ÔÙÈ¡Æäceil
+                s.g = t.g + 23;                 //23è¡¨ç¤ºæ ¹å·5ä¹˜ä»¥10å†å–å…¶ceil
                 s.h = Heuristic(s);
                 s.f = s.g + s.h;
                 s.step = t.step + 1;

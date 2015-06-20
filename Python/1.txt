@@ -1,4 +1,4 @@
-使用setup工具
-下载ez_setup.py使用python运行，最后python目录下的scripts目录下会有easy_install文件
+浣跨敤setup宸ュ叿
+涓嬭浇ez_setup.py浣跨敤python杩愯锛屾渶鍚巔ython鐩綍涓嬬殑scripts鐩綍涓嬩細鏈塭asy_install鏂囦欢
 
-安装simplejson模块:easy_install simplejson需要准确的拼写模块名称
+瀹夎simplejson妯″潡:easy_install simplejson闇�瑕佸噯纭殑鎷煎啓妯″潡鍚嶇О

@@ -1,12 +1,12 @@
-stackÓÃÀ´ÊµÏÖÏÈ½øºó³öµÄÈÝÆ÷¡£
+stackç”¨æ¥å®žçŽ°å…ˆè¿›åŽå‡ºçš„å®¹å™¨ã€‚
 
-ÔÚ±ê×¼¿âÀïÃæ£¬Ò»°ãµÄ£¬stack²»ÊÇ»ù±¾µÄÈÝÆ÷Àà£¬ÊÇÍ¨¹ý°ü×°ÆäËûÈÝÆ÷£¬Ìá¹©·ÃÎÊ½Ó¿ÚÊµÏÖ¡£
+åœ¨æ ‡å‡†åº“é‡Œé¢ï¼Œä¸€èˆ¬çš„ï¼Œstackä¸æ˜¯åŸºæœ¬çš„å®¹å™¨ç±»ï¼Œæ˜¯é€šè¿‡åŒ…è£…å…¶ä»–å®¹å™¨ï¼Œæä¾›è®¿é—®æŽ¥å£å®žçŽ°ã€‚
 
-»ù±¾µÄÈÝÆ÷ÀàÒ»°ãÊÇvector£¬deque£¬ºÍlist£¬¾ßÌåÊÇÓÉÄÄÒ»¸ö°ü×°ÊµÏÖ£¬²»ÊÇÈ·¶¨µÄ£¬¿ÉÄÜÊÇÆäÖÐÒ»¸ö¡£Èç¹ûÃ»ÓÐÖ¸¶¨£¬Ä¬ÈÏÒÔ°ü×°dequeÀ´ÊµÏÖ¡£
+åŸºæœ¬çš„å®¹å™¨ç±»ä¸€èˆ¬æ˜¯vectorï¼Œdequeï¼Œå’Œlistï¼Œå…·ä½“æ˜¯ç”±å“ªä¸€ä¸ªåŒ…è£…å®žçŽ°ï¼Œä¸æ˜¯ç¡®å®šçš„ï¼Œå¯èƒ½æ˜¯å…¶ä¸­ä¸€ä¸ªã€‚å¦‚æžœæ²¡æœ‰æŒ‡å®šï¼Œé»˜è®¤ä»¥åŒ…è£…dequeæ¥å®žçŽ°ã€‚
 
-std::stack<int,std::vector<int> > mystack; //Ö¸¶¨ÁËvector×÷ÎªÄÚ²¿ÈÝÆ÷
+std::stack<int,std::vector<int> > mystack; //æŒ‡å®šäº†vectorä½œä¸ºå†…éƒ¨å®¹å™¨
 
-ÓÃÆäËûÈÝÆ÷À´³õÊ¼»¯stack
+ç”¨å…¶ä»–å®¹å™¨æ¥åˆå§‹åŒ–stack
 std::deque<int> mydeque (3,100);          // deque with 3 elements
 std::vector<int> myvector (2,200);        // vector with 2 elements
 

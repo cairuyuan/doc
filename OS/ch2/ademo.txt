@@ -54,14 +54,14 @@ public class MyThreadPrinter2 implements Runnable {
 
 
 1
-Õâ¸ö³ÌÐòÊÔÍ¼Êä³ön¸öABCË³ÐòÅÅÁÐµÄ´®£¬µ«ÊÇ´æÔÚÐí¶àÎÊÌâ
+è¿™ä¸ªç¨‹åºè¯•å›¾è¾“å‡ºnä¸ªABCé¡ºåºæŽ’åˆ—çš„ä¸²ï¼Œä½†æ˜¯å­˜åœ¨è®¸å¤šé—®é¢˜
 
 
 2
-Õâ¸ö³ÌÐòÔÚÉè¼ÆÊ±µÄ¼ÙÉèÊÇ£ºµÚÒ»¸öÔÚwaitÖ®ºóÏµÍ³²ÅÔËÐÐÁíÍâÒ»¸öÏß³Ì£¬Êµ¼ÊÉÏ¶àºË»úÆ÷ÉÏË³ÐòÃ»ÓÐ±£Ö¤£¬
+è¿™ä¸ªç¨‹åºåœ¨è®¾è®¡æ—¶çš„å‡è®¾æ˜¯ï¼šç¬¬ä¸€ä¸ªåœ¨waitä¹‹åŽç³»ç»Ÿæ‰è¿è¡Œå¦å¤–ä¸€ä¸ªçº¿ç¨‹ï¼Œå®žé™…ä¸Šå¤šæ ¸æœºå™¨ä¸Šé¡ºåºæ²¡æœ‰ä¿è¯ï¼Œ
 
 
 3
-Õâ¸ö³ÌÐò»áÏÝÈë×îºóµÄwait£¬Ïß³ÌÒ»Ö±³ÁË¯ÎÞÈË»½ÐÑ£¬µ¼ÖÂ³ÌÐò½©ËÀ
+è¿™ä¸ªç¨‹åºä¼šé™·å…¥æœ€åŽçš„waitï¼Œçº¿ç¨‹ä¸€ç›´æ²‰ç¡æ— äººå”¤é†’ï¼Œå¯¼è‡´ç¨‹åºåƒµæ­»
 
 

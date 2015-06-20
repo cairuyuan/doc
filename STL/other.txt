@@ -1,13 +1,13 @@
-Ò»¸ö¶ÔÏó»ò»ù±¾ÀàÐÍ±»¼ÓÈëµ½ÈÝÆ÷Ö®ºó£¬Êý¾ÝÊÇÔõÑù¼ÓÈëµÄ£¿
-½öÌí¼ÓÒýÓÃ/Ö¸Õë£¿
-Ç³¸´ÖÆ
-Éî¸´ÖÆ
+ä¸€ä¸ªå¯¹è±¡æˆ–åŸºæœ¬ç±»åž‹è¢«åŠ å…¥åˆ°å®¹å™¨ä¹‹åŽï¼Œæ•°æ®æ˜¯æ€Žæ ·åŠ å…¥çš„ï¼Ÿ
+ä»…æ·»åŠ å¼•ç”¨/æŒ‡é’ˆï¼Ÿ
+æµ…å¤åˆ¶
+æ·±å¤åˆ¶
 
-ËÆºõÊÇÕû¸öµÄ¸´ÖÆÒ»·Ý
+ä¼¼ä¹Žæ˜¯æ•´ä¸ªçš„å¤åˆ¶ä¸€ä»½
 
-prev ·µ»ØÖ¸¶¨µÄµü´úÆ÷ÄãÏë¿ªÊ¼µÄµÚX(µÚ¸ö²ÎÊý)¸öÔªËØ£¬º¬±¾Éí£¬´Ó1¿ªÊ¼Êý£¬Èç¹ûµÚ¶þ¸ö²ÎÊýÎª1£¬Ôò·µ»ØµÄ¾ÍÊÇµÚÒ»¸ö²ÎÊý(Ò»¸öÖ¸Õë)
+prev è¿”å›žæŒ‡å®šçš„è¿­ä»£å™¨ä½ æƒ³å¼€å§‹çš„ç¬¬X(ç¬¬ä¸ªå‚æ•°)ä¸ªå…ƒç´ ï¼Œå«æœ¬èº«ï¼Œä»Ž1å¼€å§‹æ•°ï¼Œå¦‚æžœç¬¬äºŒä¸ªå‚æ•°ä¸º1ï¼Œåˆ™è¿”å›žçš„å°±æ˜¯ç¬¬ä¸€ä¸ªå‚æ•°(ä¸€ä¸ªæŒ‡é’ˆ)
 
-Èç¹ûµÚ¶þ¸ö²ÎÊý´«Èë0 Ôò»á´íÎó
+å¦‚æžœç¬¬äºŒä¸ªå‚æ•°ä¼ å…¥0 åˆ™ä¼šé”™è¯¯
 
 std::vector<int> v{ 3, 1, 4 };
 	
@@ -15,12 +15,12 @@ std::vector<int> v{ 3, 1, 4 };
 	
 	auto pv = std::prev(it, 2);
 	
-	std::cout << *pv << '\n'; Êä³öÎª1
+	std::cout << *pv << '\n'; è¾“å‡ºä¸º1
 
 
  ForwardIterator upper_bound (ForwardIterator first, ForwardIterator last,
                                const T& val);
 
-·µ»Ø´Ófirstµ½lastÖ®¼ä£¬µÚÒ»¸ö±Èval´óµÄÔªËØµÄµü´úÆ÷
+è¿”å›žä»Žfirståˆ°lastä¹‹é—´ï¼Œç¬¬ä¸€ä¸ªæ¯”valå¤§çš„å…ƒç´ çš„è¿­ä»£å™¨
 
-ÀàËÆÓÐlower_bound
+ç±»ä¼¼æœ‰lower_bound

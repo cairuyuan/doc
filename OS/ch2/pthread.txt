@@ -1,12 +1,12 @@
 1
-��POSIX��׼�У����һ���߳��Ȼ��д�����ֻ�ö������������޷�Ԥ���
+在POSIX标准中，如果一个线程先获得写锁，又获得读锁，则结果是无法预测的
 
-�����ǵݹ������������룩��д���Ƿǵݹ��������������룩
+读锁是递归锁（即可重入），写锁是非递归锁（即不可重入）
 
-��ϵͳ��֧�ֵݹ��������ֱ���Ҫʹ��ʱ,����Ҫ�Լ�����һ���ݹ�����ͨ�����ݹ������ڷǵݹ黥���������ü�������ʵ�ֵġ��򵥵�˵���ڼ���ǰ�����ж���һ���������̺߳͵�ǰ�������߳��Ƿ�Ϊͬһ���������ͬһ���̣߳���������ü�������1��������ǵĻ��������ü�������Ϊ1�����¼��ǰ�̺߳ţ�������
+在系统不支持递归锁，而又必须要使用时,就需要自己构造一个递归锁。通常，递归锁是在非递归互斥锁加引用计数器来实现的。简单的说，在加锁前，先判断上一个加锁的线程和当前加锁的线程是否为同一个。如果是同一个线程，则仅仅引用计数器加1。如果不是的话，则引用计数器设为1，则记录当前线程号，并加锁
 
 
-����1
+程序1
     #include <pthread.h>  
     int main()  
     {  
@@ -17,7 +17,7 @@
         pthread_rwlock_unlock(&rwl);  
         return -1;  
     }  
-  ����2
+  程序2
   #include <pthread.h>  
   int main()  
   {  
@@ -28,7 +28,7 @@
        pthread_rwlock_unlock(&rwl);  
        return -1;  
   }  
-    /*����3*/  
+    /*程序3*/  
     #include <pthread.h>  
     int main()  
     {  
@@ -39,7 +39,7 @@
         pthread_rwlock_unlock(&rwl);  
        return -1;  
    }  
-   /*����4*/  
+   /*程序4*/  
    #include <pthread.h>  
    int main()  
    {  
@@ -54,14 +54,14 @@
 
 
 2
-�ݹ���
-�տ�ʼ��������ʱ�򣬾Ͳ�������������û�н⿪��ʱ�򣬻�Ҫ�����������ͼ򵥵ļ�һ���⿪һ�Ѿͼ�һ��������Ϊ��ʱ���Ͱ������ٵ�
+递归索
+刚开始引用锁的时候，就产生它，当在锁没有解开的时候，还要继续用锁，就简单的加一，解开一把就减一，当计数为零时，就把锁销毁掉
 
 
 
 3
-����ģʽ
-��JDK 5֮��Javaʹ�����µ��ڴ�ģ�͡�volatile�ؼ���������ȷ�����塪����JDK1.5֮ǰ��volatile�Ǹ��ؼ��֣����ǲ�û����ȷ�Ĺ涨����;������volatile���ε�д�������ܺ�֮ǰ�Ķ�д������������������ܺ�֮��Ķ�д�����������ˣ�ֻҪ���Ǽ򵥵İ�instance����volatile�ؼ��־Ϳ����ˡ�
+单例模式
+在JDK 5之后，Java使用了新的内存模型。volatile关键字有了明确的语义——在JDK1.5之前，volatile是个关键字，但是并没有明确的规定其用途——被volatile修饰的写变量不能和之前的读写代码调整，读变量不能和之后的读写代码调整！因此，只要我们简单的把instance加上volatile关键字就可以了。
  
 public class SingletonClass { 
 
@@ -88,7 +88,7 @@ public class SingletonClass {
 
 
 4
-Ȼ������ֻ��JDK1.5֮���Java�Ľ����������֮ǰ�汾�أ���ʵ�����������һ�ֽ���������������ܵ�Java�汾��Ӱ�죺
+然而，这只是JDK1.5之后的Java的解决方案，那之前版本呢？其实，还有另外的一种解决方案，并不会受到Java版本的影响：
  
 public class SingletonClass { 
     
@@ -106,11 +106,11 @@ public class SingletonClass {
     
 }
  
-����һ�汾�ĵ���ģʽʵ�ִ����У�����ʹ����Java�ľ�̬�ڲ��ࡣ��һ�����Ǳ�JVM��ȷ˵���˵ģ���˲������κζ����ԡ�����δ����У���ΪSingletonClassû��static�����ԣ���˲����ᱻ��ʼ����ֱ������getInstance()��ʱ�򣬻����ȼ���SingletonClassInstance�࣬�������һ��static��SingletonClassʵ���������Ҫ����SingletonClass�Ĺ��췽����Ȼ��getInstance()��������ڲ����instance���ظ�ʹ���ߡ��������instance��static�ģ���˲����ṹ���Ρ�
+在这一版本的单例模式实现代码中，我们使用了Java的静态内部类。这一技术是被JVM明确说明了的，因此不存在任何二义性。在这段代码中，因为SingletonClass没有static的属性，因此并不会被初始化。直到调用getInstance()的时候，会首先加载SingletonClassInstance类，这个类有一个static的SingletonClass实例，因此需要调用SingletonClass的构造方法，然后getInstance()将把这个内部类的instance返回给使用者。由于这个instance是static的，因此并不会构造多次。
  
-����SingletonClassInstance��˽�о�̬�ڲ��࣬���Բ��ᱻ������֪����ͬ����static����ҲҪ�󲻻��ж��ʵ�����ڡ����ң�JSL�淶���壬��Ĺ��������ԭ���Եģ��ǲ����ģ���˲���Ҫ��ͬ���顣ͬ����������������ǲ����ģ�����getInstance()Ҳ������Ҫ��ͬ����
+由于SingletonClassInstance是私有静态内部类，所以不会被其他类知道，同样，static语义也要求不会有多个实例存在。并且，JSL规范定义，类的构造必须是原子性的，非并发的，因此不需要加同步块。同样，由于这个构造是并发的，所以getInstance()也并不需要加同步。
  
-���ˣ������������˽��˵���ģʽ��Java�����е�ʱ����������ֽ������������ƫ���ڵڶ��֣�����Effiective JavaҲ�Ƽ������ַ�ʽ��
+至此，我们完整的了解了单例模式在Java语言中的时候，提出了两种解决方案。个人偏向于第二种，并且Effiective Java也推荐的这种方式。
 
 
 

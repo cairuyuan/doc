@@ -1,4 +1,4 @@
-д�����̳߳�����˿϶��Ը���������Ϥ���������������ִ���
+写过多线程程序的人肯定对各种锁很熟悉，尤其是下面这种代码
 
 def lock_usage:
     lock.Lock()
@@ -8,10 +8,10 @@ def lock_usage:
  
     lock.Unlock()
     return
-Ϊ�˱��������������Ҫ��ÿ��return���֮ǰ���ͷ�����������Ĵ����У���������ִ��·���ܶ࣬�����оͻ����������unlock��䣬������һ���С�¶��������һ������unlock�����Ǹ�Ǳ�ڵ�Σ�ա�������֮�⣬�����ļ��������Ĺرյ��漰����Դ�ͷŵĲ����������������⡣
-Ϊ�˽���ڴ�й©���ڴ����⣬�ִ��ı�������ṩ���������ջ��ơ�ͬ��Ϊ�˽����������������Դ���ͷ����⣬�ܶ����Զ��ṩ��һЩ�﷨���ԡ�Python��with��䣬C#��using��Go��defer��
+为了避免造成死锁，需要在每个return语句之前都释放锁。像上面的代码中，如果代码的执行路径很多，代码中就会包含大量的unlock语句，代码混乱还是小事儿，如果万一忘掉了unlock，就是个潜在的危险。除了锁之外，包括文件描述符的关闭等涉及到资源释放的操作都会有这种问题。
+为了解决内存泄漏的内存问题，现代的编程语言提供了垃圾回收机制。同样为了解决上面这种有限资源的释放问题，很多语言都提供了一些语法特性。Python有with语句，C#有using，Go有defer。
 
-�ȿ������������ĳ���������ʹ��finally
+先看解决这种问题的常规做法，使用finally
 
 try:
     lock.Lock()
@@ -20,7 +20,7 @@ except:
     prcess_except()
 finally:
     lock.Unlock
-��ôдʹ�ô�����ң������ǵ�......���Ĵ���Ҳ���������ƴ���ʱ����ʹ�ô�����ӻ��ҡ�������ʹ��with����Ĵ���
+这么写使得代码很乱，尤其是当......处的代码也包含有类似代码时，会使得代码更加混乱。再来看使用with语句后的代码
 
 
 class LockContext(object):
@@ -38,9 +38,9 @@ class LockContext(object):
  
 with LockContext(lock) as lock:
     .......
-����д��������������Ȼ��࣬���ǽṹ�����˺ܶࡣ������Ĵ�����__init__�еĸ�ֵ�ǿ�ѡ�ģ�ֻҪ��֤�ܹ����ʵ�����ı����Ϳɡ�
+这样写出来，代码量虽然差不多，但是结构清晰了很多。在上面的代码中__init__中的赋值是可选的，只要保证能够访问到所需的变量就可。
 
-Python�е�with�����Ҫ�����ʵ��__enter__��__exit__����������with���ʱ�����ȷ�������䣬ִ��__enter__������Ȼ���ڵ�ǰsuite�˳�ʱ�������__exit__������__exit__�����г��˿������ͷ���Դ�Ĳ���֮�⣬ͬʱҲ���쳣�����ĵط��������ǰsuite�����˳���û���׳��κ��쳣��__exit__�ļ���������ΪNone�������򽫴��쳣��type��value��traceback��Ϊ�������ݸ�__exit__������ͬʱ�����__exit__����false�����쳣���ٴ��׳�����һ������suite���Լ������������__exit__����true����ô���쳣�Ͳ��ᱻ�ٴ��׳���
+Python中的with语句中要求对象实现__enter__和__exit__函数。调用with语句时，会先分析该语句，执行__enter__函数，然后在当前suite退出时，会调用__exit__函数。__exit__函数中除了可以做释放资源的操作之外，同时也是异常处理的地方。如果当前suite正常退出，没有抛出任何异常，__exit__的几个参数均为None。否则，则将此异常的type、value、traceback作为参数传递给__exit__函数，同时，如果__exit__返回false，此异常会再次抛出，上一级代码suite可以继续处理，如果__exit__返回true，那么此异常就不会被再次抛出了
 
 #coding:utf-8
 '''

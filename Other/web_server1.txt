@@ -1,33 +1,33 @@
-�ڸ�������ƽ̨�У�pythonӿ�ֵ�web��ܿ��������ģ�����ԭ��Ӧ������py�й�����ʮ�ּ򵥣�ʹ�����Ӳ��ϱ�������
+在各种语言平台中，python涌现的web框架恐怕是最多的；猜想原因应该是在py中构造框架十分简单，使得轮子不断被发明。
 
-�������һ�����˽��������py web��ܣ�����Ҳο���ϣ��������ɽ֮ʯ�����á�
+这里记述一下我了解过的两个py web框架，供大家参考，希望能起他山之石的作用。
 
 ====== Django ======
-Django Ӧ�����������py��ܣ�Google App Engine����Erlang���п������Ӱ�졣
+Django 应该是最出名的py框架，Google App Engine甚至Erlang都有框架受它影响。
 
-Django���ߴ��ȫ�ķ����������������ȫ�Զ����Ĺ�����̨��ֻ��Ҫʹ����ORM�����򵥵Ķ����壬�������Զ��������ݿ�ṹ���Լ�ȫ���ܵĹ�����̨��
+Django是走大而全的方向，它最出名的是其全自动化的管理后台：只需要使用起ORM，做简单的对象定义，它就能自动生成数据库结构、以及全功能的管理后台。
 
-Django�ṩ�ķ��㣬Ҳ��ζ��Django���õ�ORM������ڵ�����ģ����ϳ̶ȸߡ�
+Django提供的方便，也意味着Django内置的ORM跟框架内的其他模块耦合程度高。
 
-Ӧ�ó������ʹ��Django���õ�ORM������Ͳ������ܵ�������ṩ�����ֻ�����ORM�ı����������Ͽ����л�����ORMģ�飬������൱��Ҫ��װ����ϵķ��Ӳ������װ�ޣ�������һ��ʼ��ȥë�߷���ȫ�µ�װ�ޡ�
+应用程序必须使用Django内置的ORM，否则就不能享受到框架内提供的种种基于其ORM的便利；理论上可以切换掉其ORM模块，但这就相当于要把装修完毕的房子拆除重新装修，倒不如一开始就去毛胚房做全新的装修。
 
-Django�������ǳ��ߵĿ���Ч�ʣ���������չ���ޣ�����Django����Ŀ���������ﵽһ����ģ�󣬶���Ҫ��������ع��������������ܵ�Ҫ��
+Django的卖点是超高的开发效率，其性能扩展有限；采用Django的项目，在流量达到一定规模后，都需要对其进行重构，才能满足性能的要求。
 
-�ⷽ��ľ�����Բο���http://www.slideshare.net/zeeg/djangocon-2010-scaling-disqus
+这方面的经验可以参考：http://www.slideshare.net/zeeg/djangocon-2010-scaling-disqus
 
-Ruby��RailsҲ�����Ƶ����⣻��TwitterΪ�������ص��˽��յĹ�ģ����Ҫ˵Rails����������Ruby����Ҫ����������
+Ruby的Rails也有类似的问题；以Twitter为例，推特到了今日的规模，不要说Rails，甚至是连Ruby都需要抛弃重来。
 
-���ҵĸо�Django���õ�����С�͵���վ����������Ϊ������վ����ʵ�ֲ�Ʒ���εĹ��ߡ�
+就我的感觉Django适用的是中小型的网站，或者是作为大型网站快速实现产品雏形的工具。
 
-�����Ƴ���Ʒ��������
+快速推出产品是王道：
   Believe it or not, the bigger problem isn't scaling, it's getting to the point where you have to scale. Without the first problem you won't have the second. - http://gettingreal.37signals.com/ch04_Scale_Later.php
 
-===== Django ģ�� =====
-Django��ģ��ϵͳ���ʮ������˼��ҲӦ��������Ӱ������������Ĳ��֡�
+===== Django 模板 =====
+Django的模板系统设计十分有意思，也应该其框架内影响最大、争议最大的部分。
 
-Djangoģ��������ѧ�ǳ��׵Ľ����롢��ʽ���룻asp.net�ᳫ������/ģ����룬�������ϻ��ǿ��Ի�ϣ���Django���ǴӸ����϶ž���ģ���н��б��롢�������ݵĿ��ܡ�
+Django模板的设计哲学是彻底的将代码、样式分离；asp.net提倡将代码/模板分离，但技术上还是可以混合；而Django则是从根本上杜绝在模板中进行编码、处理数据的可能。
 
-�ȷ�˵��asp.netģ���п���д��
+比方说，asp.net模板中可以写：
 <%
   int i;
   for(i==0;i<10;i++){
@@ -35,51 +35,51 @@ Djangoģ��������ѧ�ǳ��׵Ľ����롢��ʽ���룻asp.net�ᳫ������/ģ����룬������
   }
 %>
 
-Django�ǳ��ײ�֧��Ƕ����������Ĵ��룬����ʹ����ģ�����õĺ�������ʵ���ϣ���Ϊ��ģ�幹����һ�֡������ԡ������ڴˡ������ԡ�ʮ�ּ򵥣�����Ҳ�ܹ�����ģ����ֲ����ͬƽ̨��
+Django是彻底不支持嵌入类似上面的代码，仅能使用其模板内置的函数；这实际上，是为其模板构造了一种“新语言”；由于此“新语言”十分简单，所以也能够将其模板移植到不同平台。
 
-���������£�Django��ģ�幦�����㹻�ģ����������⣨��ʱ�����⡱Ҳ����ʮ�����⣩�������������Ҫ��ģ����Ƕ����룬��ô����Ҫ������ģ��ϵͳ�Ĺ�����ģ����չ����ʱ��ģ����ֱ��дһ�д����ܹ���������⣬��ģ����չʵ�ֺ󣬻���ʮ���д��롣
+大多数情况下，Django的模板功能是足够的，但对于特殊（有时“特殊”也不是十分特殊）的情况，还是需要在模板中嵌入代码，那么就需要根据其模板系统的规则做模板扩展。有时候，模板中直接写一行代码能够解决的问题，用模板扩展实现后，会变成十几行代码。
 
-�Ƿ�������ģ���б�̣�����Djangoģ���������֮����
+是否容忍在模板中编程，正是Django模板争议最大之处。
 
 ====== Tornado ======
-Tornado( http://www.tornadoweb.org )��Facebook��Դ�����Ŀ�ܣ�����ѧ��Django�����������ˡ�
+Tornado( http://www.tornadoweb.org )是Facebook开源出来的框架，其哲学跟Django近乎两个极端。
 
-Tornado�ߵ����ٶ����ķ�����Ҳ���ṩģ�幦�ܣ���Ȼ���������������ǿ���������ģ������������루ֱ��Ƕ�뵥��py���룩�ġ�
+Tornado走的是少而精的方向，它也有提供模板功能；虽然不鼓励，但作者是可以允许在模板进行少量编码（直接嵌入单行py代码）的。
 
-�����asp.net��ȣ�Tornado�е����ƽ�ʵ����AsyncHttpHandler������֮�⣬ȫ����Ҫ�Լ�ȥʵ�֡�
+如果跟asp.net相比，Tornado有点类似仅实现了AsyncHttpHandler；除此之外，全部需要自己去实现。
 
-�ðɣ���ʵ����ģ�壬�й��ʻ�֧�֣������������õ�OAuth/OpenIDģ�飬��������������¼������ʵҲֱ��ʵ����Http��������
+好吧，其实它有模板，有国际化支持，甚至还有内置的OAuth/OpenID模块，方便做第三方登录，它其实也直接实现了Http服务器。
 
-����û��ORM������һ��mysql�ĳ��򵥷�װ��������û��Session֧�֣�����Ҫ˵Django�����Զ����ĺ�̨��
+但它没有ORM（仅有一个mysql的超简单封装），甚至没有Session支持，更不要说Django那样自动化的后台。
 
-������һ��������վ���ڸ����ܵ�Ҫ���£���ܵĸ���������������Ҫ���ƣ����Ը��õ�ģ��ǳ��٣�һ����Django��������վ�������־������ϵĶ��ƣ�Django���ʣ�µģ����п���Ҳ����tornadoһ��ʼ�����ṩ���ⲿ�֡�
+假设是一个大型网站，在高性能的要求下，框架的各个部分往往都需要定制，可以复用的模块非常少；一个以Django开发的网站，各部分经过不断的定制，Django框架剩下的，很有可能也就是tornado一开始所能提供的这部分。
 
-��;ͬ�顣
+殊途同归。
 
-===== HTTP������ =====
-TornadoΪ�˸�Чʵ��Comet/����첽����HTTP�ӿڣ���ֱ����Ƕ��HTTP��������
+===== HTTP服务器 =====
+Tornado为了高效实现Comet/后端异步调用HTTP接口，是直接内嵌了HTTP服务器。
 
-ǰ�������apache / lighttpd / nginx��Ҳ���Թ���������ʣ�������û������ʵ��HTTP 1.1��Э�飬���Թٷ��ĵ����Ƽ��û���������������ǰ��ʹ��nginx����˷�����������Tornadoʵ����
+前端无需加apache / lighttpd / nginx等也可以供浏览器访问；但它并没有完整实现HTTP 1.1的协议，所以官方文档是推荐用户在生产环境下在前端使用nginx，后端反向代理到多个Tornado实例。
 
-Tornado�����ǵ��̵߳��첽���������Ĭ������ʱ�������CPU�������ж��ʵ�����������CPU��˵����ơ�
+Tornado本身是单线程的异步网络程序，它默认启动时，会根据CPU数量运行多个实例；充分利用CPU多核的优势。
 
-===== ���߳��첽 =====
-��վ�������������ݿ��������Tornado�ǵ��̵߳ģ�����ζ��������ݿ��ѯ���ع�����������������Ӧ�ᱻ������
+===== 单线程异步 =====
+网站基本都会有数据库操作，而Tornado是单线程的，这意味着如果数据库查询返回过慢，整个服务器响应会被堵塞。
 
-���ݿ��ѯ��ʵ����Ҳ��Զ�̵�������ã���������£��ǽ���Щ����Ҳ��װ��Ϊ�첽�ģ���Tornado�Դ˲�**û��**�ṩ�κ�֧�֡�
+数据库查询，实质上也是远程的网络调用；理想情况下，是将这些操作也封装成为异步的；但Tornado对此并**没有**提供任何支持。
 
-����Tornado��**���**��������ȱ�ݡ�
+这是Tornado的**设计**，而不是缺陷。
 
-һ��ϵͳ��Ҫ������������Ǳ��������ݿ��ѯ�ٶ�����ģ�
+一个系统，要满足高流量；是必须解决数据库查询速度问题的！
 
-���ݿ������ڲ�ѯ�������⣬����ϵͳ��������Ż������ݿⶼ����ƿ������������ϵͳ��
+数据库若存在查询性能问题，整个系统无论如何优化，数据库都会是瓶颈，拖慢整个系统！
 
-�첽��**����**�ӱ������ᵽϵͳ�����ܣ��������Ǳ�������������Ӧ�ȴ����Լ��л��̵߳�CPU�ķѡ�
+异步并**不能**从本质上提到系统的性能；它仅仅是避免多余的网络响应等待，以及切换线程的CPU耗费。
 
-������ݿ��ѯ��Ӧ̫������Ҫ����������ݿ���������⣻�����ǵ������ݿ��ǰ��WebӦ�á�
+如果数据库查询响应太慢，需要解决的是数据库的性能问题；而不是调用数据库的前端Web应用。
 
-����ʵʱ���ص����ݲ�ѯ�������������Ҫȷ���������ݶ����ڴ��У����ݿ�Ӳ��IOӦ��Ϊ0�������Ĳ�ѯ�����㹻�죻��������ݿ��ѯ�㹻�죬��ôǰ��webӦ��Ҳ���޽����ݲ�ѯ��װΪ�첽�ı�Ҫ��
+对于实时返回的数据查询，理想情况下需要确保所有数据都在内存中，数据库硬盘IO应该为0；这样的查询才能足够快；而如果数据库查询足够快，那么前端web应用也就无将数据查询封装为异步的必要。
 
-������ʹ��Э�̣��첽�������ͬ������ʼ�ջ��ǻ���߸����ԣ���Ҫ�������Ǵ�����Щ���⸴�����Ƿ�ֵ�á�
+就算是使用协程，异步程序对于同步程序始终还是会提高复杂性；需要衡量的是处理这些额外复杂性是否值得。
 
-�������в�ѯʵ����̫�����޷��ƹ���Tornaod�Ľ����ǽ���Щ��ѯ�ں�˷�װ������װ��ΪHTTP�ӿڣ�Ȼ��ʹ��Tornado���õ��첽HTTP�ͻ��˽��е��á�
+如果后端有查询实在是太慢，无法绕过，Tornaod的建议是将这些查询在后端封装独立封装成为HTTP接口，然后使用Tornado内置的异步HTTP客户端进行调用。

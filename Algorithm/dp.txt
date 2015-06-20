@@ -1,30 +1,30 @@
-ÎÒÃÇ¿ÉÒÔ°ÑÕâ¸öÎÊÌâ×ª»»³É¶¯Ì¬¹æ»®dpµÄÎÊÌâ
+æˆ‘ä»¬å¯ä»¥æŠŠè¿™ä¸ªé—®é¢˜è½¬æ¢æˆåŠ¨æ€è§„åˆ’dpçš„é—®é¢˜
 
 
-Ê×ÏÈÎÒÃÇÏÈ¶¨Òå¼¸¸ö±äÁ¿£¬²¢¶ÔÕâ¼¸¸öÁ¿×öÒ»¶¨µÄËµÃ÷£¡ÎªÁË·½±ãÀí½â£¬ÏÂÃæÕâÐ©ÎªÎ±Âë!!!
-len  = str.length();   // ×Ö·û´®µÄ³¤¶È
+é¦–å…ˆæˆ‘ä»¬å…ˆå®šä¹‰å‡ ä¸ªå˜é‡ï¼Œå¹¶å¯¹è¿™å‡ ä¸ªé‡åšä¸€å®šçš„è¯´æ˜Žï¼ä¸ºäº†æ–¹ä¾¿ç†è§£ï¼Œä¸‹é¢è¿™äº›ä¸ºä¼ªç !!!
+len  = str.length();   // å­—ç¬¦ä¸²çš„é•¿åº¦
 
-int[] cuts = new int[len + 1]; //cutsÊý×é£¬cuts[i] ±íÊ¾ ÒÔ i ¿ªÍ·µ½len½áÎ²µÄ×Ó´® Òª´ïµ½ÌâÒâÐèÒªµÄ×îÉÙÇÐ¸îÊý£¨ÕâÑù×Ó×îÖÕ cuts[0]¾ÍÊÇÎÒÃÇÒªµÄ½á¹û£©¡¾³õÊ¼»¯ cuts[i] = len - i, ÒòÎª×î»µÇé¿öÒÔ i ¿ªÍ·µ½len½áÎ²µÄ×Ó´®ÒªÇÐ¸îÊý¾ÍÊÇÃ¿¸ö×Ö·û¶¼ÇÐÒ»´Î¡¿
+int[] cuts = new int[len + 1]; //cutsæ•°ç»„ï¼Œcuts[i] è¡¨ç¤º ä»¥ i å¼€å¤´åˆ°lenç»“å°¾çš„å­ä¸² è¦è¾¾åˆ°é¢˜æ„éœ€è¦çš„æœ€å°‘åˆ‡å‰²æ•°ï¼ˆè¿™æ ·å­æœ€ç»ˆ cuts[0]å°±æ˜¯æˆ‘ä»¬è¦çš„ç»“æžœï¼‰ã€åˆå§‹åŒ– cuts[i] = len - i, å› ä¸ºæœ€åæƒ…å†µä»¥ i å¼€å¤´åˆ°lenç»“å°¾çš„å­ä¸²è¦åˆ‡å‰²æ•°å°±æ˜¯æ¯ä¸ªå­—ç¬¦éƒ½åˆ‡ä¸€æ¬¡ã€‘
 
-int[][] matrix = new  int[len][len]; //ÉèÖÃ³öÒ»¸öÁÚ½Ó¾ØÕóÊý×é£¬ËüËù±íÊ¾µÄÒâË¼£ºÈçmatrix[i][j] = true, ±íÊ¾ ×Ó´® sub(i, j) ÊÇÂú×ã»ØÎÄ×Ö·û´®Ìõ¼þµÄ£¡
+int[][] matrix = new  int[len][len]; //è®¾ç½®å‡ºä¸€ä¸ªé‚»æŽ¥çŸ©é˜µæ•°ç»„ï¼Œå®ƒæ‰€è¡¨ç¤ºçš„æ„æ€ï¼šå¦‚matrix[i][j] = true, è¡¨ç¤º å­ä¸² sub(i, j) æ˜¯æ»¡è¶³å›žæ–‡å­—ç¬¦ä¸²æ¡ä»¶çš„ï¼
 
-ÄÇÃ´ÅÐ¶Ïmatrix[i][j] ÊÇ·ñÂú×ã»ØÎÄ×Ö·û´®µÄÌõ¼þÊÇ£º 
-
-
-
-matrix[i+1][j-1] == true (±íÊ¾sub(i+1,j-1)ÊÇÂú×ã»ØÎÄ×Ö·û´®) && str[i] == str[j] 
-
-»òÕß 
-
-j - i < 2 && str[i] == str[j] £¨¼´Èç¹ûj - i == 1Ê±£¬ÎªÁ½¸ö×Ö·ûÏàµÈ£¬Èç¹ûj - i == 0Ê±£¬ÎªÍ¬Ò»¸ö×Ö·û£© 
+é‚£ä¹ˆåˆ¤æ–­matrix[i][j] æ˜¯å¦æ»¡è¶³å›žæ–‡å­—ç¬¦ä¸²çš„æ¡ä»¶æ˜¯ï¼š 
 
 
 
-ÕâÁ½ÖÖÇé¿ö£¬ÎÒÃÇ¶¼½«matrix[i][j]ÉèÖÃ³Étrue£¬·½±ãÏÂÒ»´ÎµÄDP£¬²¢ÇÒÎÒÃÇ¿ÉÒÔÇó³ö×îÐ¡µÄÇÐ¸î´ÎÊý
+matrix[i+1][j-1] == true (è¡¨ç¤ºsub(i+1,j-1)æ˜¯æ»¡è¶³å›žæ–‡å­—ç¬¦ä¸²) && str[i] == str[j] 
 
-cuts[i] = min{cuts[i], cuts[j+1] + 1};  ×´Ì¬×ªÒÆ·½³ÌÊ½
+æˆ–è€… 
 
-ÕâÑù×îºócuts[0] - 1±ãÎª ×Ö·û´®strµÄ×îÐ¡µÄÇÐ¸îÊý£¡£¡£¡£¡
+j - i < 2 && str[i] == str[j] ï¼ˆå³å¦‚æžœj - i == 1æ—¶ï¼Œä¸ºä¸¤ä¸ªå­—ç¬¦ç›¸ç­‰ï¼Œå¦‚æžœj - i == 0æ—¶ï¼Œä¸ºåŒä¸€ä¸ªå­—ç¬¦ï¼‰ 
+
+
+
+è¿™ä¸¤ç§æƒ…å†µï¼Œæˆ‘ä»¬éƒ½å°†matrix[i][j]è®¾ç½®æˆtrueï¼Œæ–¹ä¾¿ä¸‹ä¸€æ¬¡çš„DPï¼Œå¹¶ä¸”æˆ‘ä»¬å¯ä»¥æ±‚å‡ºæœ€å°çš„åˆ‡å‰²æ¬¡æ•°
+
+cuts[i] = min{cuts[i], cuts[j+1] + 1};  çŠ¶æ€è½¬ç§»æ–¹ç¨‹å¼
+
+è¿™æ ·æœ€åŽcuts[0] - 1ä¾¿ä¸º å­—ç¬¦ä¸²strçš„æœ€å°çš„åˆ‡å‰²æ•°ï¼ï¼ï¼ï¼
 
 
 

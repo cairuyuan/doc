@@ -1,26 +1,26 @@
 1
-∆Ù∂Ø ˝æ›ø‚
+ÂêØÂä®Êï∞ÊçÆÂ∫ì
 */mongod --dbpath path
 
 
 
 
 2
-¡¨Ω” ˝æ›ø‚
-mongo -u name IP:port/dbname -p		ª·—È÷§√‹¬Î
+ËøûÊé•Êï∞ÊçÆÂ∫ì
+mongo -u name IP:port/dbname -p		‰ºöÈ™åËØÅÂØÜÁ†Å
 
 
 
 3
- ˝æ›ø‚∂‘”¶  db
-¥¥Ω®∑Ω∑®°£°£°£use »ª∫Û”√db.createCollection('name')¥¥Ω®“ª∏ˆ±Ì£¨ø…Œ™ø’
+Êï∞ÊçÆÂ∫ìÂØπÂ∫î  db
+ÂàõÂª∫ÊñπÊ≥ï„ÄÇ„ÄÇ„ÄÇuse ÁÑ∂ÂêéÁî®db.createCollection('name')ÂàõÂª∫‰∏Ä‰∏™Ë°®ÔºåÂèØ‰∏∫Á©∫
 
-±Ì∂‘”¶ collection
+Ë°®ÂØπÂ∫î collection
 
 
 
 4
-≤È—ØµΩµƒ ˝æ› π”√tojson∫Ûø…“‘◊™Œ™ø…∂¡◊¥Ã¨
+Êü•ËØ¢Âà∞ÁöÑÊï∞ÊçÆ‰ΩøÁî®tojsonÂêéÂèØ‰ª•ËΩ¨‰∏∫ÂèØËØªÁä∂ÊÄÅ
 
 
 
@@ -41,11 +41,11 @@ db.foo.remove()
 db.foo.find()
 db.foo.findOne()
 
-¥Û–°±»Ωœ  $gt $gte $lt $lte $ne
+Â§ßÂ∞èÊØîËæÉ  $gt $gte $lt $lte $ne
 
-“‘ƒÍ¡‰…˝–Úasc 
+‰ª•Âπ¥ÈæÑÂçáÂ∫èasc 
 db.users.find().sort({age: 1}); 
-“‘ƒÍ¡‰Ωµ–Údesc 
+‰ª•Âπ¥ÈæÑÈôçÂ∫èdesc 
 db.users.find().sort({age: -1}); 
 
 db.users.find().count(); 
@@ -86,30 +86,30 @@ tar zxvf pymongo-1.9.tar.gz
 sudo apt-get install build-essential python-dev
 sudo yum install gcc python-devel
 
-python¡¨Ω”mongo
+pythonËøûÊé•mongo
 import pymongo
-¡¨Ω”  conn = pymongo.Connection('localhost',27017)ªÚ conn = pymongo.Connection(host='127.0.0.1',port=27017)
-¡¨Ω” ˝æ›ø‚ db = conn.ChatRoom  ªÚ   db = conn['ChatRoom']
-¡¨Ω”±Ì     account = db.Account  account = db["Account"]
+ËøûÊé•  conn = pymongo.Connection('localhost',27017)Êàñ conn = pymongo.Connection(host='127.0.0.1',port=27017)
+ËøûÊé•Êï∞ÊçÆÂ∫ì db = conn.ChatRoom  Êàñ   db = conn['ChatRoom']
+ËøûÊé•Ë°®     account = db.Account  account = db["Account"]
 
-ø…“‘ π”√accountÃÊªªdb.Account
+ÂèØ‰ª•‰ΩøÁî®accountÊõøÊç¢db.Account
 
-∑µªÿµƒ ˝æ›“—æ≠unjson
+ËøîÂõûÁöÑÊï∞ÊçÆÂ∑≤Áªèunjson
 db.Account.find_one()
 db.Account.find_one({"UserName":"keyword"})
 
 for item in db.Account.find({"UserName":"libing"}):
     item
 
->>> db.Account.find().sort("UserName")  --ƒ¨»œŒ™…˝–Ú
->>> db.Account.find().sort("UserName",pymongo.ASCENDING)   --…˝–Ú
->>> db.Account.find().sort("UserName",pymongo.DESCENDING)  --Ωµ–Ú
+>>> db.Account.find().sort("UserName")  --ÈªòËÆ§‰∏∫ÂçáÂ∫è
+>>> db.Account.find().sort("UserName",pymongo.ASCENDING)   --ÂçáÂ∫è
+>>> db.Account.find().sort("UserName",pymongo.DESCENDING)  --ÈôçÂ∫è
 
 db.Account.insert({"AccountID":21,"UserName":"libing"})
 db.Account.update({"UserName":"libing"},{"$set":{"Email":"libing@126.com","Password":"123"}}
 
 db.Test.remove({"UserName":"keyword"})
-db.Account.remove()   -- »´≤ø…æ≥˝
+db.Account.remove()   -- ÂÖ®ÈÉ®Âà†Èô§
 
 
 
@@ -138,13 +138,13 @@ SELECT * FROM users WHERE age = 30 AND name = 'Tom'; 		users.find({'age':30, 'na
 SELECT * FROM users WHERE age = 30 OR name = 'Tom'; 		users.find({'$or':[{'age':30}, {'name':'Tom'}]}) 
 CREATE INDEX idx_name ON users (name, age DESC); 		users.create_index([('name',ASCENDING), ('age',DECENDING)], unique=T/F, dropDups=T/F) 
 ALTER TABLE users DROP INDEX idx_name; 				users.drop_index(idx_name) 
-EXPLAIN SELECT °≠ 						users.find(°≠).explain() 
+EXPLAIN SELECT ‚Ä¶ 						users.find(‚Ä¶).explain() 
 SELECT DISTINCE name FROM users; 				users.distinct('name') 
 SELECT COUNT(*) from users; 					users.count() 
-SELECT COUNT(*) from users WHERE °≠ 				users.find(°≠).count() 
+SELECT COUNT(*) from users WHERE ‚Ä¶ 				users.find(‚Ä¶).count() 
 UPDATE users SET age = 31 WHERE name = 'Tom'; 			users.update({'name':'Tom'}, {'$set': {'age':31}}) 
 UPDATE users SET age=age+1 WHERE name = 'Tom'; 			users.update({'name':'Tom'}, {'$inc': {'age':1}}) 
-REPLACE INFO°≠ 							users.update({'name':'Tom'}, {'$set': {'age':31}}, True) 
+REPLACE INFO‚Ä¶ 							users.update({'name':'Tom'}, {'$set': {'age':31}}, True) 
 DELETE from users; 						users.remove() 
 DELETE form users WHERE name = 'Tom'; 				users.remove({'name':'Tom'}) 
 DROP TABLE users;	 					users.drop() 
