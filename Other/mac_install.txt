@@ -1,56 +1,43 @@
 针对UI47安装mac os的几个设定
 
-1 usb设置
-在bios中关闭usb3.0和xhci模式，不然会出现不识别
+1 
+usb设置
+    在bios中关闭usb3.0和xhci模式，不然会出现不识别
 
 
-2 声卡开启
-使用VoodooHDA.kext，安装到系统的Extensions中
+2 
+声卡开启
+    使用VoodooHDA.kext，安装到系统的Extensions中
 
 
-3 修改驱动
-替换系统的AppleACPIPlatform.kext, IO80211Family.kext
-删除系统的AppleIntelCPU电源管理，两个
+3 
+修改驱动
+    替换系统的AppleACPIPlatform.kext, IO80211Family.kext
+    删除系统的AppleIntelCPU电源管理，两个
 
 
-4 权限修复
-现在几乎已经不用，加上去使用－f开机即可
+4 
+权限修复
+    现在几乎已经不用，加上去使用－f开机即可
 
 
-5 NTFS读写
-使用网盘中的11.2破解版本，
+5 
+NTFS读写
+    使用网盘中的11.2破解版本，
 
 
-6
-我们将安装 zsh ，其拓展功能和主题将由 oh-my-zsh 提供。其中Env.sh 文件用于维护别名（aliases），输出（exports）和路径改变（path changes）等等，以免影响 ~/.zshrc。
-使用 Homebrew 完成 zsh 和 zsh completions 的安装
-    brew install zsh zsh-completions
-安装 oh-my-zsh 让 zsh 获得拓展功能和主题
-    curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
-用文本编辑器或 vi 打开 .zshrc 进行以下编辑:
-    ZSH_THEME=pygmalion
-    alias zshconfig="vi ~/.zshrc"
-    alias envconfig="vi ~/Projects/config/env.sh"
-    plugins=(git colored-man colorize github jira vagrant virtualenv pip python brew osx zsh-syntax-highlighting)
-用文本编辑器或 vi 打开 ~/Projects/config/env.sh 进行以下编辑:
-    #!/bin/zsh
-    # PATH
-    export PATH="/usr/local/share/python:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
-    export EDITOR='vi -w'
-    # export PYTHONPATH=$PYTHONPATH
-    # export MANPATH="/usr/local/man:$MANPATH"
-    # Virtual Environment
-    export WORKON_HOME=$HOME/.virtualenvs
-    export PROJECT_HOME=$HOME/Projects
-    source /usr/local/bin/virtualenvwrapper.sh
-    # Owner
-    export USER_NAME="YOUR NAME"
-    eval "$(rbenv init -)"
-    # FileSearch
-    function f() { find . -iname "*$1*" ${@:2} }
-    function r() { grep "$1" ${@:2} -R . }
-    #mkdir and cd
-    function mkcd() { mkdir -p "$@" && cd "$_"; }
-    # Aliases
-    alias cppcompile='c++ -std=c++11 -stdlib=libc++'
-译注：如果是新增环境变量或者是修改环境变量的值，都需要 source 一下才能立即生效。如果是删除一个环境变量，必须输入 exit 以 logout 当前 shell ，然后再重新打开一个新的 shell 并 login 才能生效。
+6 
+homebrew
+    ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
+安装cask
+    brew tap phinze/cask
+    brew install brew-cask
+删除程序，和upgrade一样，单个软件删除和所有程序老版删除。
+    brew cleanup git 
+    brew cleanup
+默认 homebrew cask 安装 app 至 /opt/homebrew-cask/Caskroom 下，并链接到 ~/Applications 目录。
+修改链接目录
+    mkdir ~/My\ Applications
+    touch ~/My\ Applications/.localized
+    echo 'export HOMEBREW_CASK_OPTS="--appdir=~/My\ Applications"' >> ~/.bash_profile
+    source ~/.bash_profile
