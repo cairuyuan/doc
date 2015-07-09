@@ -1,0 +1,45 @@
+1
+使用setup工具
+下载ez_setup.py使用python运行，最后python目录下的scripts目录下会有easy_install文件
+
+安装simplejson模块:easy_install simplejson需要准确的拼写模块名称
+
+
+2
+设置sublime text的tab为4个空格：
+preference - default:
+	“tab_size”: 4,
+	“translate_tabs_to_spaces”: true,
+
+
+3
+使用supervisor，用来方便的管理*nix中的进程，启动，停止，重启
+安装：
+    使用pip安装或下载源代码setup insatll，安装后，主要使用以下两个程序，和一个配置文件
+    supervisord的一个守护进程，用于将指定的进程当做子进程来运行。
+    supervisorctl是一个客户端程序，可以查看日志并通过统一的会话来控制进程。	
+    配置文件生成：运行/usr/local/bin/echo_supervisord_conf > supervisord.conf，就生成配置文件。
+
+    以上文件位置按系统有不同，可使用 find 查找例如：find /usr -name echo_supervisord_conf 
+
+配置：在配置文件中追加以下内容，就创建了一个ddd程序
+    [program:ddd]
+    command=/home/zoer/daemon.py
+    autorestart=true
+    最后在配置文件中，还要把以下两行首的分号去掉，以便运行
+    ;[inet_http_server]
+    ;port=127.0.0.1:9001      
+
+运行
+    /usr/local/bin/supervisord -c /usr/local/etc/supervisor/supervisord.conf;-c指出配置文件路径
+    然后/usr/local/bin/supervisorctl;就进入操作模式下
+    start ddd   #就启动ddd
+    stop  ddd   #关闭
+    restart ddd #重启
+    如果修改了源程序，只需要reload ddd即可
+
+其他
+    http://127.0.0.1:9001/就可以查看当前运行的进程，并进行操作
+    配置文件进一步配置
+    操作命令
+    http://supervisord.org/index.html    
