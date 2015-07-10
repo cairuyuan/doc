@@ -6,10 +6,8 @@
     替换系统的AppleACPIPlatform.kext, IO80211Family.kext
     删除系统的AppleIntelCPU电源管理，两个
     使用网盘中的11.2破解版本
-
-
-2   合并mac分区
-    diskutil mergePartition newName disk0s2 disk0s2
+    合并mac分区 diskutil mergePartition newName disk0s2 disk0s2
+    imagesize连除1024 当前的大小为32099
 
 
 6 
