@@ -1,26 +1,13 @@
-﻿重装windows后重新引导
-1
+﻿1
+重装windows后重新引导
 使用可引导的usb或光盘，启动live模式
 sudo -i提升权限，fdisk -l查看分区
 mount /dev/sda1 /mnt
 grub-install --root-directory=/mnt /dev/sda
 
-2
-使用easybcd在windows下，添加grub2，启动会grub rescue
-使用ls （hdx,y）查看
-set root=(hdx,y)
-set prefix=(hdx,y)/grub
-insmod normal
-normal
-  可能会启动紫色的引导栏中，也可能到minigrub中，如果后者
-    set root=(hdx,y)
-    set prefix=(hdx,y)/boot/grub
-    normal
-回到ubuntu系统中之后，提升权限，然后update-grub
-如果要使用grub引导，再 grub-install /dev/sda
 
-怎样硬盘引导的ubutnu镜像
-1 使用其他ubuntu启动计算机，或者从硬盘启动
+2
+使用其他ubuntu启动计算机，或者从硬盘启动
 	a  使用easybcd添加一个nerogrub选项
 	b  找一个镜像如ubuntu-14.04.1-desktop-i386.iso，提取casper中的initrd.lz和vmlinuz两个文件
 	c  三个文件复制到某个盘的根目录
@@ -30,46 +17,22 @@ title Install Ubuntu
 root (hd0,0)
 kernel (hd0,0)/vmlinuz boot=casper iso-scan/filename=/ubuntu-14.04.1-desktop-i386.iso ro quiet splash locale=zh_CN.UTF-8
 initrd (hd0,0)/initrd.lz
-
 #其中hd后面的0表示第1个硬盘，第2个0是三个文件的分区，从0数。后面的文件名要一致
-
 
 
 3
 开机启动脚本可放在：/etc/init.d/rc.local文件中执行
-
 登陆启动脚本可放在：~/.profile中，或.bash_profile与.bash_login
 退出登录时执行.bash_logout 脚本
+/etc/profile	export PATH=”$PATH:your path1:...” 
+临时修改path变量  export PATH="$PATH:your path1:..." 
 
+shell字体用courier
 
 4
-输入法
-系统安装64位english
-安装搜狗输入法 fcitx
-
------------------------------------------------------------------------------------------------------------------------
-1
-toInstall:
-mysql
-sublimetext
-svn
-git
-clang
-
-
-2
-config:
-gedit, color font side panel
-
-open terminal in this folder
-sudo apt-get install nautilus-open-terminal
-
-config the PATH
-
-for each OS init
-*	/etc/profile	export PATH=”$PATH:your path1:...” 
-for each usr login
-*	~/.profile	export PATH=”$PATH:your path1:...” 
-
-for a temp use in shell
-	$ sudo export PATH="$PATH:your path1:..." 
+输入法，搜狗输入法 fcitx
+找不到系统设置，sudo apt-get install unity-control-center
+当前目录打开shell， sudo apt-get install nautilus-open-terminal
+安装wps
+    sudo apt-get update&&sudo apt-get dist-upgrade -y
+    sudo apt-get install wps-office
