@@ -1,0 +1,35 @@
+针对UI47安装mac os的几个设定
+
+1 
+    在bios中关闭usb3.0和xhci模式，不然会出现不识别
+    使用VoodooHDA.kext，安装到系统的Extensions中
+    替换系统的AppleACPIPlatform.kext, IO80211Family.kext
+    删除系统的AppleIntelCPU电源管理，两个
+    使用网盘中的11.2破解版本
+    合并mac分区 diskutil mergePartition newName disk0s2 disk0s2
+    imagesize连除1024 当前的大小为32099
+
+
+6 
+homebrew
+    ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
+安装cask
+    brew tap phinze/cask
+    brew install brew-cask
+删除程序，和upgrade一样，单个软件删除和所有程序老版删除。
+    brew cleanup git 
+    brew cleanup
+默认 homebrew cask 安装 app 至 /opt/homebrew-cask/Caskroom 下，并链接到 ~/Applications 目录。
+修改链接目录
+    mkdir ~/My\ Applications
+    touch ~/My\ Applications/.localized
+    echo 'export HOMEBREW_CASK_OPTS="--appdir=~/My\ Applications"' >> ~/.bash_profile
+    source ~/.bash_profile
+
+
+7
+开启、关闭服务
+    通过命令 sudo /Library/StartupItems/MySQLCOM/MySQLCOM start/stop
+    或直接通过mysqld，不同的安装方式，启动方式略不同
+修改密码
+    /usr/local/mysql/bin/mysqladmin -u root -p password [password]
