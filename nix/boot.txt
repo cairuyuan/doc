@@ -3,8 +3,13 @@
 使用可引导的usb或光盘，启动live模式
 sudo -i提升权限，fdisk -l查看分区
 mount /dev/sda1 /mnt
++++++++++++++++++++++++++++++++++++++++++++++
+需要联网
+sudo add-apt-repository ppa:yannubuntu/boot-repair && sudo apt-get update
+sudo apt-get install -y boot-repair 
+时间有点长，但是傻瓜
+---------------------------------------------
 grub-install --root-directory=/mnt /dev/sda
-
 
 2
 使用其他ubuntu启动计算机，或者从硬盘启动
@@ -15,7 +20,7 @@ grub-install --root-directory=/mnt /dev/sda
 #umount -l /isodevice
 title Install Ubuntu
 root (hd0,0)
-kernel (hd0,0)/vmlinuz boot=casper iso-scan/filename=/ubuntu-14.04.1-desktop-i386.iso ro quiet splash locale=zh_CN.UTF-8
+kernel (hd0,0)/vmlinuz boot=casper iso-scan/filename=/ubuntu-14.04.2-desktop-amd64.iso ro quiet splash locale=zh_CN.UTF-8
 initrd (hd0,0)/initrd.lz
 #其中hd后面的0表示第1个硬盘，第2个0是三个文件的分区，从0数。后面的文件名要一致
 
